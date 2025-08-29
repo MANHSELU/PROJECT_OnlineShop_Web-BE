@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/ShoppingCart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo" th:text="${siteName} ? ${siteName} : 'TechTrend'">TechTrend</div>
+        <div class="divider"></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a th:href="@{#home}">Trang chủ</a></li>
+                <li><a th:href="@{#products}">Sản phẩm</a></li>
+                <li><a th:href="@{#about}">Giới thiệu</a></li>
+                <li><a th:href="@{#contact}">Liên hệ</a></li>
+                <li><a th:href="@{#news}">Tin tức</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a class="cart-btn" th:href="@{#cart}"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
+                <div class="divider"></div>
+                <a class="login-btn" th:href="@{#login}">Đăng nhập</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="cart-container">
+    <h1 class="cart-title">Giỏ Hàng Của Bạn</h1>
+    <div class="top-nav">
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm sản phẩm...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="filter-sort">
+            <select  class="filter-select">
+                <option selected disabled>Lọc danh mục</option>
+                <option value="">Lọc </option>
+                <option value="laptop">Laptop</option>
+                <option value="cpu">CPU</option>
+                <option value="accessories">Phụ kiện</option>
+            </select>
+            <select class="sort-select">
+                <option value="">Sắp xếp theo</option>
+                <option value="price-asc">Giá: Thấp đến cao</option>
+                <option value="price-desc">Giá: Cao đến thấp</option>
+                <option value="name-asc">Tên: A-Z</option>
+                <option value="name-desc">Tên: Z-A</option>
+            </select>
+        </div>
+    </div>
+    <table class="cart-table">
+        <thead>
+        <tr>
+            <th>Chọn</th>
+            <th>Sản Phẩm</th>
+            <th>Giá</th>
+            <th>Số Lượng</th>
+            <th>Tổng Cộng</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="checkbox" class="product-checkbox"></td>
+            <td><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop"> Laptop Gaming</td>
+            <td>$999</td>
+            <td class="quantity">
+                <input type="number" value="1" min="1">
+            </td>
+            <td>$999</td>
+            <td class="actions"><button class="delete-btn"><i class="fas fa-trash-alt"></i></button></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="product-checkbox"></td>
+            <td><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="CPU"> CPU Intel Core i9</td>
+            <td>$499</td>
+            <td class="quantity">
+                <input type="number" value="2" min="1">
+            </td>
+            <td>$998</td>
+            <td class="actions"><button class="delete-btn"><i class="fas fa-trash-alt"></i></button></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="product-checkbox"></td>
+            <td><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="CPU"> CPU Intel Core i9</td>
+            <td>$499</td>
+            <td class="quantity">
+                <input type="number" value="2" min="1">
+            </td>
+            <td>$998</td>
+            <td class="actions"><button class="delete-btn"><i class="fas fa-trash-alt"></i></button></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="cart-total">
+        <span>Tổng cộng: $1997</span>
+        <a href="#checkout" class="btn">Thanh toán</a>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Về TechTrend</h3>
+            <p>Chuyên cung cấp linh kiện điện tử, laptop, PC chất lượng cao với giá cả cạnh tranh.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Liên kết nhanh</h3>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Liên hệ</h3>
+            <p>Email: support@techtrend.vn</p>
+            <p>Hotline: 0123 456 789</p>
+            <p>Địa chỉ: 123 Đường Công Nghệ, TP.HCM</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 TechTrend. Mọi quyền được bảo lưu.</p>
+    </div>
+</footer>
+</body>
+</html>
