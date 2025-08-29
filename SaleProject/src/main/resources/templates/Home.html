@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle} ? ${pageTitle} : 'TechTrend - Trang Chủ'">Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
+    <link rel="stylesheet" href="/static/Home.css" th:href="@{/static/Home.css}">
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo" th:text="${siteName} ? ${siteName} : 'TechTrend'">TechTrend</div>
+        <div class="divider"></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a th:href="@{#home}">Trang chủ</a></li>
+                <li><a th:href="@{#products}">Sản phẩm</a></li>
+                <li><a th:href="@{#about}">Giới thiệu</a></li>
+                <li><a th:href="@{#contact}">Liên hệ</a></li>
+                <li><a th:href="@{#news}">Tin tức</a></li>
+            </ul>
+            <div class="nav-actions">
+
+                <a class="cart-btn" th:href="@{#cart}"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
+                <div class="divider"></div>
+                <a class="login-btn" th:href="@{#login}">Đăng nhập</a>
+                <div class="divider"></div>
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1 th:text="${heroTitle} ? ${heroTitle} : 'Chào mừng đến với TechTrend'">Chào mừng đến với TechTrend</h1>
+        <p th:text="${heroSubtitle} ? ${heroSubtitle} : 'Cửa hàng linh kiện điện tử, laptop, PC hàng đầu'">Cửa hàng linh kiện điện tử, laptop, PC hàng đầu</p>
+        <a href="#products" class="btn" th:href="@{#products}">Khám phá ngay</a>
+    </div>
+</section>
+
+<section class="products" id="products">
+    <h2 th:text="${productsTitle} ? ${productsTitle} : 'Sản phẩm nổi bật'">Sản phẩm nổi bật</h2>
+    <div class="product-grid">
+        <div class="product-card" th:each="product : ${products}">
+            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
+            <div class="product-info">
+                <h3 th:text="${product.name}">Laptop Gaming</h3>
+                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
+                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+            </div>
+        </div>
+        <div class="product-card" th:each="product : ${products}">
+            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
+            <div class="product-info">
+                <h3 th:text="${product.name}">Laptop Gaming</h3>
+                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
+                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+            </div>
+        </div>
+        <div class="product-card" th:each="product : ${products}">
+            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
+            <div class="product-info">
+                <h3 th:text="${product.name}">Laptop Gaming</h3>
+                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
+                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3 th:text="${aboutTitle} ? ${aboutTitle} : 'Về TechTrend'">Về TechTrend</h3>
+            <p th:text="${aboutDescription} ? ${aboutDescription} : 'Chuyên cung cấp linh kiện điện tử, laptop, PC chất lượng cao với giá cả cạnh tranh.'">Chuyên cung cấp linh kiện điện tử, laptop, PC chất lượng cao với giá cả cạnh tranh.</p>
+        </div>
+        <div class="footer-section">
+            <h3 th:text="${linksTitle} ? ${linksTitle} : 'Liên kết nhanh'">Liên kết nhanh</h3>
+            <ul>
+                <li><a href="#home" th:href="@{#home}">Trang chủ</a></li>
+                <li><a href="#products" th:href="@{#products}">Sản phẩm</a></li>
+                <li><a href="#about" th:href="@{#about}">Giới thiệu</a></li>
+                <li><a href="#contact" th:href="@{#contact}">Liên hệ</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3 th:text="${contactTitle} ? ${contactTitle} : 'Liên hệ'">Liên hệ</h3>
+            <p th:text="${contactEmail} ? ${contactEmail} : 'Email: support@techtrend.vn'">Email: support@techtrend.vn</p>
+            <p th:text="${contactPhone} ? ${contactPhone} : 'Hotline: 0123 456 789'">Hotline: 0123 456 789</p>
+            <p th:text="${contactAddress} ? ${contactAddress} : 'Địa chỉ: 123 Đường Công Nghệ, TP.HCM'">Địa chỉ: 123 Đường Công Nghệ, TP.HCM</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p th:text="'&copy; ' + ${currentYear} + ' TechTrend. Mọi quyền được bảo lưu.'">&copy; 2025 TechTrend. Mọi quyền được bảo lưu.</p>
+    </div>
+</footer>
+</body>
+</html>
