@@ -30,7 +30,8 @@ public class RegisterServices {
     }
 
     public void register(RegisterDTO registerDTO) throws MessagingException {
-        if (userRepository.FindByEmail(registerDTO.getEmail()).isPresent()) {
+        Users user = userRepository.FindByEmail(registerDTO.getEmail());
+        if (user != null) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         if (!registerDTO.getConfirmPassword().equals(registerDTO.getPassword())) {
