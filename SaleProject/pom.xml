@@ -75,6 +75,24 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>12.2.0.jre11</version> <!-- hoặc phiên bản phù hợp với JDK của bạn -->
         </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId> <!--Chứa các interface và lớp công khai để bạn sử dụng trong code như JwtBuilder, JwtParser, Claims, v.v. -->
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId> <!--Đây là phần triển khai nội bộ của JJWT.-->
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId> <!--Đây là phần mở rộng giúp JJWT sử dụng Jackson để xử lý JSON. -->
+            <version>0.11.5</version>
+            <scope>runtime</scope>
+        </dependency>
+
 
     </dependencies>
 

@@ -16,18 +16,17 @@ import java.time.LocalDateTime;
         private String email;
         @Column(name= "password")
         private String password;
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING) // ===> Khi sử dụng enum thì nó sẽ luôn ở dạng số nguyên  theo thứ tự ví dụ guest đứng đầu thi lưu số 0,...
-    private Role role;          // ===> Nên phải dùng @Enumerated(EnumType.STRING) để đổi lại dạng String
-    @Column(name = "is_account_enabled")
-    private boolean is_account_enabled;
-    @Column(name = "token")
-    private String token; // ===> token cho xác nhận đăng kí
-    @Column(name = "token_created_at")
-    private LocalDateTime token_created_at;
-    @Column(name = "token_expired_at")
-    private LocalDateTime token_expired_at;
-
+        @Column(name = "role")
+        @Enumerated(EnumType.STRING) // ===> Khi sử dụng enum thì nó sẽ luôn ở dạng số nguyên  theo thứ tự ví dụ guest đứng đầu thi lưu số 0,...
+        private Role role;          // ===> Nên phải dùng @Enumerated(EnumType.STRING) để đổi lại dạng String
+        @Column(name = "is_account_enabled")
+        private boolean is_account_enabled;
+        @Column(name = "token")
+        private String token; // ===> token cho xác nhận đăng kí
+        @Column(name = "token_created_at")
+        private LocalDateTime token_created_at;
+        @Column(name = "token_expired_at")
+        private LocalDateTime token_expired_at;
 
     public enum Role{
         Guest,Member,Admin
