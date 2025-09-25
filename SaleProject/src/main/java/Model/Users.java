@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
         private LocalDateTime token_expired_at;
 
     public enum Role{
-        Guest,Member,Admin
+        GUEST,MEMBER,ADMIN
     }
     public Users(int user_id, String user_name, String email, String password, Role role, boolean is_account_enabled, String token, LocalDateTime token_created_at, LocalDateTime token_expired_at) {
         this.user_id = user_id;

@@ -30,6 +30,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
@@ -75,11 +76,13 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>12.2.0.jre11</version> <!-- hoặc phiên bản phù hợp với JDK của bạn -->
         </dependency>
+
         <dependency>
-            <groupId>io.jsonwebtoken</groupId> <!--Chứa các interface và lớp công khai để bạn sử dụng trong code như JwtBuilder, JwtParser, Claims, v.v. -->
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>9.41</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId> <!--Đây là phần triển khai nội bộ của JJWT.-->
             <artifactId>jjwt-impl</artifactId>
@@ -92,8 +95,6 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-
-
     </dependencies>
 
 	<build>
