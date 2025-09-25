@@ -15,8 +15,18 @@ public class Shopping_Cart {
     private Products products;
     @Column(name = "date_add")
     private String date_add;
+    @Column(name = "quantity")
+    private int quantity;
 
     public Shopping_Cart() {
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getCart_id() {
