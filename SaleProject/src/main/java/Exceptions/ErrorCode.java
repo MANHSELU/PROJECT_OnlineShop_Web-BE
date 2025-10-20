@@ -9,6 +9,7 @@ public enum ErrorCode {
     USER_NOT_EXISTED(1002, "Người dùng không tồn tồn tại", HttpStatus.BAD_REQUEST),
     USER_NOT_ENABLED(1003, "Người dùng không tồn tồn tại", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD(1004, "Mật khẩu không đúng", HttpStatus.BAD_REQUEST),
+    PRODUCT_NOT_EXISTED(1005, "Sản phẩm không tồn tại", HttpStatus.BAD_REQUEST),
     VERIFY_LINK_EXPIRED(1050, "Link xác thực hết hạn!", HttpStatus.BAD_REQUEST);
 
     private final int code;

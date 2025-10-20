@@ -2,6 +2,8 @@ package Model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Shopping_Cart {
     @Id
@@ -14,7 +16,7 @@ public class Shopping_Cart {
     @JoinColumn(name = "product_id")
     private Products products;
     @Column(name = "date_add")
-    private String date_add;
+    private LocalDateTime date_add;
     @Column(name = "quantity")
     private int quantity;
 
@@ -53,11 +55,11 @@ public class Shopping_Cart {
         this.products = products;
     }
 
-    public String getDate_add() {
+    public LocalDateTime getDate_add() {
         return date_add;
     }
 
-    public void setDate_add(String date_add) {
+    public void setDate_add(LocalDateTime date_add) {
         this.date_add = date_add;
     }
 }

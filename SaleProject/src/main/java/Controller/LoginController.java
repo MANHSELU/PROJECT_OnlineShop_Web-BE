@@ -17,7 +17,7 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private LoginService loginService;
-    @PostMapping("/login")
+        @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
         try {
             String token = loginService.Login(loginDTO,response);
