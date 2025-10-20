@@ -63,7 +63,7 @@ public class RegisterServices {
         }
         Users users1 = users.get();
         users1.setIs_account_enabled(true);
-        users1.setRole(Users.Role.Member);
+        users1.setRole(Users.Role.MEMBER);
         userRepository.save(users1);
     }
 }

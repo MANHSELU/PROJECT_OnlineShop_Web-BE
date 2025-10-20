@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
     Users FindByEmail(@Param("email") String email);
     @Query(value = "select * from Users where Users.token= :token",nativeQuery = true)
     Optional<Users> FindByToken(@Param("token") String token);
+    @Query(value = "select * from Users where Users.user_id = :user_id",nativeQuery = true)
+    Users FindById(@Param("user_id") int user_id);
 }
