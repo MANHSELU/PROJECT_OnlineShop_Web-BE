@@ -1,7 +1,7 @@
 package Filter;
 
 import Model.Users;
-import Repository.UserRepository;
+import Repository.user.UserRepository;
 import Util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

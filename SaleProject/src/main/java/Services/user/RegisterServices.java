@@ -1,9 +1,10 @@
-package Services;
+package Services.user;
 
 import DTO.RegisterDTO;
 import Exceptions.AppException;
 import Model.Users;
-import Repository.UserRepository;
+import Repository.user.UserRepository;
+import Services.email.EmailService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

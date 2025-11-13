@@ -1,13 +1,13 @@
-package Services;
+package Services.product;
 
 import Exceptions.AppException;
 import Exceptions.ErrorCode;
 import Model.Products;
 import Model.Shopping_Cart;
 import Model.Users;
-import Repository.ProductRepository;
-import Repository.ShoppingCartRepository;
-import Repository.UserRepository;
+import Repository.product.ProductRepository;
+import Repository.product.ShoppingCartRepository;
+import Repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

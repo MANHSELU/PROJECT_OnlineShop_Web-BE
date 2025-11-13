@@ -1,8 +1,8 @@
-package Controller;
+package Controller.user;
 
 
 import DTO.RegisterDTO;
-import Services.RegisterServices;
+import Services.user.RegisterServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -22,7 +22,6 @@ public class Shopping_Cart {
 
     public Shopping_Cart() {
     }
-
     public int getQuantity() {
         return quantity;
     }
