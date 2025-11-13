@@ -1,22 +1,18 @@
-package Services;
+package Services.user;
 
 import DTO.LoginDTO;
 import Exceptions.AppException;
 import Exceptions.ErrorCode;
 import Model.Users;
-import Repository.UserRepository;
+import Repository.user.UserRepository;
 import Util.JwtUtil;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class LoginService {

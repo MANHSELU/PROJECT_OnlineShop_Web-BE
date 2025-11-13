@@ -1,13 +1,13 @@
-package Services;
+package Services.product;
 
 import Exceptions.AppException;
 import Exceptions.ErrorCode;
 import Model.Favourite_Products;
 import Model.Products;
 import Model.Users;
-import Repository.FavouriteProductRepository;
-import Repository.ProductRepository;
-import Repository.UserRepository;
+import Repository.product.FavouriteProductRepository;
+import Repository.product.ProductRepository;
+import Repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +28,15 @@ public class AddFavouriteServices {
         if(products == null){
             throw new AppException(ErrorCode.PRODUCT_NOT_EXISTED);
         }
-        Favourite_Products favourite_products = favouriteProductRepository.FindByUserId(user_id);
-        if(favourite_products.getProducts().getProduct_id() == product_id){
-            favourite_products.setStatus(Favourite_Products.Status.UN_FAVOURITE);
+        Favourite_Products favourite_products = favouriteProductRepository.FindByUserIdAndProductId(user_id,product_id);
+        if(favourite_products != null){
+            favouriteProductRepository.delete(favourite_products);
+        }else{
+            Favourite_Products favouriteProducts = new Favourite_Products();
+            favouriteProducts.setProducts(products);
+            favouriteProducts.setUsers(user);
+            favouriteProductRepository.save(favouriteProducts);
         }
-        Favourite_Products favouriteProducts = new Favourite_Products();
-        favouriteProducts.setProducts(products);
-        favouriteProducts.setUsers(user);
-        favouriteProducts.setStatus(Favourite_Products.Status.FAVOURITE);
-        favouriteProductRepository.save(favouriteProducts);
+
     }
 }

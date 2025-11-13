@@ -1,11 +1,10 @@
-package Services;
+package Services.product;
 
 
 import Exceptions.AppException;
 import Exceptions.ErrorCode;
 import Model.Products;
-import Repository.ProductRepository;
-import Repository.UserRepository;
+import Repository.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

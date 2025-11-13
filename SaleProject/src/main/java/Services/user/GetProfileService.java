@@ -1,12 +1,10 @@
-package Services;
+package Services.user;
 
-import DTO.GetProfileDTO;
 import Exceptions.AppException;
 import Exceptions.ErrorCode;
 import Model.Users;
-import Repository.UserRepository;
+import Repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service

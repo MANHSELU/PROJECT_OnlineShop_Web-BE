@@ -1,7 +1,7 @@
-package Controller;
+package Controller.user;
 
 import Model.Users;
-import Services.GetProfileService;
+import Services.user.GetProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -27,6 +27,6 @@ public class GetProfileController {
          }
          return null;
     }
-
-
 }
+
+

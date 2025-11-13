@@ -1,7 +1,7 @@
-package Controller;
+package Controller.user;
 
 import DTO.LoginDTO;
-import Services.LoginService;
+import Services.user.LoginService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class LoginController {
         try {
             String token = loginService.Login(loginDTO,response);
             return ResponseEntity.ok(Map.of(
-                    "accesToken",token,
+                    "accessToken",token,
                     "messages", "Log in success"
             ));
         } catch (Exception ex) {

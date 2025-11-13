@@ -1,12 +1,14 @@
-package Controller;
+package Controller.product;
 
 import Model.Users;
-import Repository.UserRepository;
-import Services.AddFavouriteServices;
+import Repository.user.UserRepository;
+import Services.product.AddFavouriteServices;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +21,8 @@ public class AddFavouriteController {
     private AddFavouriteServices addFavouriteServices;
     @Autowired
     private UserRepository userRepository;
+    @PostMapping("/AddFavourite")
+    @PreAuthorize("hasRole('MEMBER')")
     public ResponseEntity<?> AddFavouritesController(Authentication authentication,HttpServletRequest request){
         try {
             String email = (String) authentication.getPrincipal();

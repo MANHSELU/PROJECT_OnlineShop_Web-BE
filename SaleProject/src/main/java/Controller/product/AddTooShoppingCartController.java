@@ -1,8 +1,8 @@
-package Controller;
+package Controller.product;
 
 import Model.Users;
-import Repository.UserRepository;
-import Services.AddShoppingCartServices;
+import Repository.user.UserRepository;
+import Services.product.AddShoppingCartServices;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
