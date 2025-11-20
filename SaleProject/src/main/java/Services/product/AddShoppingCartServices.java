@@ -31,7 +31,7 @@ public class AddShoppingCartServices {
         if(products==null) {
             throw new AppException(ErrorCode.PRODUCT_NOT_EXISTED);
         }
-        Shopping_Cart existingCart = shoppingCartRepository.FindByUser_IdAndProduct_Id(user_id,productId);
+        Shopping_Cart existingCart = shoppingCartRepository.FindByUser_Id(user_id);
         if (existingCart !=null){
             existingCart.setQuantity(quantity);
             shoppingCartRepository.save(existingCart);
