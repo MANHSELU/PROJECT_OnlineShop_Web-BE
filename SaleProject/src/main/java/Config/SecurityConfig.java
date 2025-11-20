@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())   // tắt CORS (chỉ test)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login","/api/register","/api/verify").permitAll()
-                        .requestMatchers("/api/profile","/api/AddShoppingCart", "/api/AddFavourite","/api/getAllProduct","/api/CheckOrder").authenticated()
+                        .requestMatchers("/api/profile","/api/AddShoppingCart", "/api/AddFavourite","/api/getAllProduct","/api/CheckOrder","/api/createNewProducts").authenticated()
                         .anyRequest().authenticated()   // cho phép tất cả request
                 ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
