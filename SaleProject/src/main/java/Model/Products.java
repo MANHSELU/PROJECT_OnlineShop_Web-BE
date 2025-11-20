@@ -20,12 +20,12 @@ public class Products {
     @Column(name = "description")
     private String description;
     @Column(name = "product_price")
-    private BigDecimal product_price;
+    private Double product_price;
 
     public Products() {
     }
 
-    public Products(int product_id, Category category, String product_name, int quantity, String description, BigDecimal product_price) {
+    public Products(int product_id, Category category, String product_name, int quantity, String description, Double product_price) {
         this.product_id = product_id;
         this.category = category;
         this.product_name = product_name;
@@ -74,11 +74,11 @@ public class Products {
         this.description = description;
     }
 
-    public BigDecimal getProduct_price() {
+    public Double getProduct_price() {
         return product_price;
     }
 
-    public void setProduct_price(BigDecimal product_price) {
+    public void setProduct_price(Double product_price) {
         this.product_price = product_price;
     }
 }
