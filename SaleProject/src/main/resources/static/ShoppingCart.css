@@ -101,7 +101,7 @@ nav {
 /* Main Content - Cart */
 .cart-container {
     max-width: 1200px;
-    margin-left: 170px;
+    margin-left: 360px;
     padding: 20px;
 }
 
@@ -192,15 +192,14 @@ nav {
     padding: 1rem;
     text-align: center;
     border-bottom: 1px solid #e5e7eb;
-
 }
 
 
 .cart-table th {
     background-color: #3b82f6;
     color: white;
-}
 
+}
 .cart-table td img {
     width: 130px;
     height: 80px;
@@ -265,13 +264,15 @@ nav {
     font-size: 1.1rem;
     transition: transform 0.3s ease, background-color 0.3s ease;
     margin-left: 1rem;
+    display: inline-block;
+
 }
 
 .cart-total .btn:hover {
-    background-color: #1e3a8a;
+    background-color: #01071a;
     transform: scale(1.05);
-}
 
+}
 /* Footer */
 footer {
     background: linear-gradient(90deg, #1e3a8a, #2c5282);
@@ -406,4 +407,5 @@ footer {
         margin-left: 0;
         margin-top: 1rem;
     }
+
 }

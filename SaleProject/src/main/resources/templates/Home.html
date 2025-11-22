@@ -70,6 +70,14 @@
                 <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
             </div>
         </div>
+        <div class="product-card" th:each="product : ${products}">
+            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
+            <div class="product-info">
+                <h3 th:text="${product.name}">Laptop Gaming</h3>
+                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
+                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+            </div>
+        </div>
     </div>
 </section>
 
