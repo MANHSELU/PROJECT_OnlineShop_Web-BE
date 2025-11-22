@@ -3,6 +3,7 @@ package Model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Products {
@@ -21,17 +22,28 @@ public class Products {
     private String description;
     @Column(name = "product_price")
     private Double product_price;
+    @OneToMany(mappedBy = "products")
+    private List<Images> images;
 
     public Products() {
     }
 
-    public Products(int product_id, Category category, String product_name, int quantity, String description, Double product_price) {
+    public Products(int product_id, Category category, String product_name, int quantity, String description, Double product_price, List<Images> images) {
         this.product_id = product_id;
         this.category = category;
         this.product_name = product_name;
         this.quantity = quantity;
         this.description = description;
         this.product_price = product_price;
+        this.images = images;
+    }
+
+    public List<Images> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Images> images) {
+        this.images = images;
     }
 
     public int getProduct_id() {

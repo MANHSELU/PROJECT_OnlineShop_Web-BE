@@ -17,6 +17,5 @@ public class GetProfileService {
             throw new AppException(ErrorCode.USER_NOT_EXISTED);
         }
         return users;
-
     }
 }
