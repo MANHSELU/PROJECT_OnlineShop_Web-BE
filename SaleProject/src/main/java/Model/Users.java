@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
         private String user_name;
         @Column(name = "email")
         private String email;
-        @Column(name= "password")
+        @Column(name = "password")
         private String password;
         @Column(name = "role")
-        @Enumerated(EnumType.STRING) // ===> Khi sử dụng enum thì nó sẽ luôn ở dạng số nguyên  theo thứ tự ví dụ guest đứng đầu thi lưu số 0,...
+        @Enumerated(EnumType.STRING)
+        // ===> Khi sử dụng enum thì nó sẽ luôn ở dạng số nguyên  theo thứ tự ví dụ guest đứng đầu thi lưu số 0,...
         private Role role;          // ===> Nên phải dùng @Enumerated(EnumType.STRING) để đổi lại dạng String
         @Column(name = "is_account_enabled")
         private boolean is_account_enabled;
@@ -27,93 +28,117 @@ import java.time.LocalDateTime;
         private LocalDateTime token_created_at;
         @Column(name = "token_expired_at")
         private LocalDateTime token_expired_at;
+        @Column(name = "phone")
+        private String phone;
+        @Column(name = "address")
+        private String address;
 
-    public enum Role{
-        GUEST,MEMBER,ADMIN
-    }
-    public Users(int user_id, String user_name, String email, String password, Role role, boolean is_account_enabled, String token, LocalDateTime token_created_at, LocalDateTime token_expired_at) {
-        this.user_id = user_id;
-        this.user_name = user_name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.is_account_enabled = is_account_enabled;
-        this.token = token;
-        this.token_created_at = token_created_at;
-        this.token_expired_at = token_expired_at;
-    }
-    public Users() {
-    }
+        public enum Role {
+            GUEST, MEMBER, ADMIN
+        }
 
-    public int getUser_id() {
-        return user_id;
-    }
+        public Users() {
+        }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
+        public Users(int user_id, String user_name, String email, String password, Role role, boolean is_account_enabled, String token, LocalDateTime token_created_at, LocalDateTime token_expired_at, String phone, String address) {
+            this.user_id = user_id;
+            this.user_name = user_name;
+            this.email = email;
+            this.password = password;
+            this.role = role;
+            this.is_account_enabled = is_account_enabled;
+            this.token = token;
+            this.token_created_at = token_created_at;
+            this.token_expired_at = token_expired_at;
+            this.phone = phone;
+            this.address = address;
+        }
 
-    public String getUser_name() {
-        return user_name;
-    }
+        public int getUser_id() {
+            return user_id;
+        }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
+        }
 
-    public String getEmail() {
-        return email;
-    }
+        public String getUser_name() {
+            return user_name;
+        }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        public void setUser_name(String user_name) {
+            this.user_name = user_name;
+        }
 
-    public String getPassword() {
-        return password;
-    }
+        public String getEmail() {
+            return email;
+        }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        public void setEmail(String email) {
+            this.email = email;
+        }
 
-    public Role getRole() {
-        return role;
-    }
+        public String getPassword() {
+            return password;
+        }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+        public void setPassword(String password) {
+            this.password = password;
+        }
 
-    public boolean isIs_account_enabled() {
-        return is_account_enabled;
-    }
+        public Role getRole() {
+            return role;
+        }
 
-    public void setIs_account_enabled(boolean is_account_enabled) {
-        this.is_account_enabled = is_account_enabled;
-    }
+        public void setRole(Role role) {
+            this.role = role;
+        }
 
-    public String getToken() {
-        return token;
-    }
+        public boolean isIs_account_enabled() {
+            return is_account_enabled;
+        }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+        public void setIs_account_enabled(boolean is_account_enabled) {
+            this.is_account_enabled = is_account_enabled;
+        }
 
-    public LocalDateTime getToken_created_at() {
-        return token_created_at;
-    }
+        public String getToken() {
+            return token;
+        }
 
-    public void setToken_created_at(LocalDateTime token_created_at) {
-        this.token_created_at = token_created_at;
-    }
+        public void setToken(String token) {
+            this.token = token;
+        }
 
-    public LocalDateTime getToken_expired_at() {
-        return token_expired_at;
-    }
+        public LocalDateTime getToken_created_at() {
+            return token_created_at;
+        }
 
-    public void setToken_expired_at(LocalDateTime token_expired_at) {
-        this.token_expired_at = token_expired_at;
+        public void setToken_created_at(LocalDateTime token_created_at) {
+            this.token_created_at = token_created_at;
+        }
+
+        public LocalDateTime getToken_expired_at() {
+            return token_expired_at;
+        }
+
+        public void setToken_expired_at(LocalDateTime token_expired_at) {
+            this.token_expired_at = token_expired_at;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
     }
-}
