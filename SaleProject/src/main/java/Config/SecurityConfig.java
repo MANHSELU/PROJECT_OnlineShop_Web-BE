@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login","/api/register","/api/verify","/api/sendOTP","/api/resetPass").permitAll()
                         .requestMatchers("/api/profile","/api/AddShoppingCart", "/api/AddFavourite","/api/getAllProduct"
-                                ,"/api/CheckOrder","/api/createNewProducts","/api/updateProfile","/api/changePass","/api/updateProduct").authenticated()
+                                ,"/api/CheckOrder","/api/createNewProducts","/api/updateProfile","/api/changePass","/api/updateProduct","/api/deleteProduct").authenticated()
                         .anyRequest().authenticated()   // cho phép tất cả request
                 ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
