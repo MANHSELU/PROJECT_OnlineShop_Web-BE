@@ -32,6 +32,12 @@ import java.time.LocalDateTime;
         private String phone;
         @Column(name = "address")
         private String address;
+        @Column(name = "otp")
+        private String otp;
+        @Column(name = "otp_craeted_at")
+        private LocalDateTime otp_created_at;
+        @Column(name = "otp_expired_at")
+        private LocalDateTime otp_expired_at;
 
         public enum Role {
             GUEST, MEMBER, ADMIN
@@ -40,18 +46,28 @@ import java.time.LocalDateTime;
         public Users() {
         }
 
-        public Users(int user_id, String user_name, String email, String password, Role role, boolean is_account_enabled, String token, LocalDateTime token_created_at, LocalDateTime token_expired_at, String phone, String address) {
-            this.user_id = user_id;
-            this.user_name = user_name;
-            this.email = email;
-            this.password = password;
-            this.role = role;
-            this.is_account_enabled = is_account_enabled;
-            this.token = token;
-            this.token_created_at = token_created_at;
-            this.token_expired_at = token_expired_at;
-            this.phone = phone;
-            this.address = address;
+        public String getOtp() {
+            return otp;
+        }
+
+        public void setOtp(String otp) {
+            this.otp = otp;
+        }
+
+        public LocalDateTime getOtp_created_at() {
+            return otp_created_at;
+        }
+
+        public void setOtp_created_at(LocalDateTime otp_created_at) {
+            this.otp_created_at = otp_created_at;
+        }
+
+        public LocalDateTime getOtp_expired_at() {
+            return otp_expired_at;
+        }
+
+        public void setOtp_expired_at(LocalDateTime otp_expired_at) {
+            this.otp_expired_at = otp_expired_at;
         }
 
         public int getUser_id() {
