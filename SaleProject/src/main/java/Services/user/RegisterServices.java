@@ -26,9 +26,6 @@ public class RegisterServices {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public boolean isValidPass(String password) {
-        return password.length() >= 8 && password.matches(".*\\d.*") && password.matches(".*[a-zA-Z].*");
-    }
 
     public void register(RegisterDTO registerDTO) throws MessagingException {
         Users user = userRepository.FindByEmail(registerDTO.getEmail());
@@ -37,9 +34,6 @@ public class RegisterServices {
         }
         if (!registerDTO.getConfirmPassword().equals(registerDTO.getPassword())) {
             throw new AppException(ErrorCode.INVALID_CONFIRM_PASSWORD);
-        }
-        if (!isValidPass(registerDTO.getPassword())){
-            throw new AppException(ErrorCode.INVALID_PASSWORD_SYNTAX);
         }
         Users users = new Users();
         users.setUser_name(registerDTO.getUsername());
