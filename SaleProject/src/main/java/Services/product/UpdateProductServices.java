@@ -1,6 +1,5 @@
 package Services.product;
 
-import DTO.CreateProductDTO;
 import Exceptions.AppException;
 import Exceptions.ErrorCode;
 import Model.Category;
@@ -20,14 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
-public class AddNewProductServices {
+public class UpdateProductServices {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
     private Cloudinary cloudinary;
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Autowired
     private ImgRepository imgRepository;
     // Hàm up 1 ảnh
@@ -51,31 +51,45 @@ public class AddNewProductServices {
 
     // Hàm up nhiều ảnh
     public List<Images> uploadMultiImageFiles(MultipartFile[] files,Products products) throws IOException {
-            List<Images> imagesList  = new ArrayList<>();
-            for(MultipartFile file : files){
-                try {
-                    Images images = uploadFile(file,products);
-                    imagesList.add(images);
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
+        List<Images> imagesList  = new ArrayList<>();
+        for(MultipartFile file : files){
+            try {
+                Images images = uploadFile(file,products);
+                imagesList.add(images);
+            }catch (Exception ex){
+                ex.printStackTrace();
             }
+        }
         return imagesList;
     }
-    // Hàm thêm sản phẩm mới
-    public void AddNewProduct(CreateProductDTO createProductDTO,MultipartFile[] images) throws IOException {
-        Category category = categoryRepository.FindById(createProductDTO.getCategory_id());
-        Products products = new Products();
-        products.setProduct_name(createProductDTO.getProduct_name());
-        products.setQuantity(createProductDTO.getQuantity());
-        products.setDescription(createProductDTO.getDescription());
-        products.setCategory(category);
-        products.setProduct_price(createProductDTO.getProduct_price());
-        productRepository.save(products);
-        if (images != null && images.length >= 4) {
-            uploadMultiImageFiles(images,products);
-        }else{
-            throw new AppException(ErrorCode.PRODUCT_IMAGES_NOT_ENOUGH);
+    public void updateProduct(int product_id, String productName, int category_id, int quantity,
+                              String description, Double product_price, MultipartFile[] image) throws IOException {
+        Category category = categoryRepository.FindById(category_id);
+        Products products = productRepository.FindById(product_id);
+        if(products == null){
+            throw new AppException(ErrorCode.PRODUCT_NOT_EXISTED);
         }
+        products.setProduct_name(productName);
+        products.setProduct_price(product_price);
+        products.setQuantity(quantity);
+        products.setDescription(description);
+        products.setCategory(category);
+        productRepository.save(products);
+        if(image != null && image.length > 0){
+            List<Images> oldImages = imgRepository.FindByProductId(product_id);
+            for(Images images : oldImages){
+                try {
+                    if(images.getPublic_image_url() != null){
+                        cloudinary.uploader().destroy(images.getPublic_image_url(), ObjectUtils.emptyMap());
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            imgRepository.deleteAll(oldImages);
+            uploadMultiImageFiles(image,products);
+        }
+
     }
+
 }

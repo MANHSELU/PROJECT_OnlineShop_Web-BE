@@ -4,19 +4,19 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class CreateProductDTO {
-    @NotBlank(message = "Product name is required")
-    private String product_name;
-    @NotBlank(message = "Product name is required")
-    @Min(value = 1, message = "Quantity must be > 0")
-    private int quantity;
-    @NotBlank(message = "Description name is required")
-    private String description;
-    @NotNull(message = "Category is required")
-    private int category_id;
-    @NotBlank(message = "Product name is required")
-    @Min(value = 1, message = "Price must be > 0")
-    private Double product_price;
+public class UpdateProductDTO {
+        @NotBlank(message = "Product name is required")
+        private String product_name;
+        @NotBlank(message = "Product name is required")
+        @Min(value = 1, message = "Quantity must be > 0")
+        private int quantity;
+        @NotBlank(message = "Description name is required")
+        private String description;
+        @NotNull(message = "Category is required")
+        private int category_id;
+        @NotBlank(message = "Product name is required")
+        @Min(value = 1, message = "Price must be > 0")
+        private Double product_price;
 
     public String getProduct_name() {
         return product_name;
