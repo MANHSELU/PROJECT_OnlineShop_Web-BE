@@ -78,13 +78,12 @@ public class UpdateProductServices {
         if(image != null && image.length > 0){
             List<Images> oldImages = imgRepository.FindByProductId(product_id);
             for(Images images : oldImages){
-                try {
                     if(images.getPublic_image_url() != null){
-                        cloudinary.uploader().destroy(images.getPublic_image_url(), ObjectUtils.emptyMap());
+                        cloudinary.uploader().destroy(images.getPublic_image_url(), ObjectUtils.emptyMap());//cloudinary.uploader().destroy(publicId, options)
+                        // cloudinary yêu cầu options là 1 map ví dụ : invalidate, ....
+                        // trong trường hợp này ko truyền gì vào thì để là mãng rỗng
+                        // cloudinary recommend ObjectUtils.emptyMap()
                     }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
             }
             imgRepository.deleteAll(oldImages);
             uploadMultiImageFiles(image,products);
