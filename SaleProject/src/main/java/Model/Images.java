@@ -8,6 +8,8 @@ public class Images {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
     private int image_id;
+    @Column(name = "public_image_url")
+    private String public_image_url;
     @OneToOne
     @JoinColumn(name = "user_id")
     private Users users;
@@ -18,13 +20,6 @@ public class Images {
     private String img_url;
 
     public Images() {
-    }
-
-    public Images(int image_id, Users users, Products products, String img_url) {
-        this.image_id = image_id;
-        this.users = users;
-        this.products = products;
-        this.img_url = img_url;
     }
 
     public int getImage_id() {
@@ -57,5 +52,13 @@ public class Images {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
+    }
+
+    public String getPublic_image_url() {
+        return public_image_url;
+    }
+
+    public void setPublic_image_url(String public_image_url) {
+        this.public_image_url = public_image_url;
     }
 }
