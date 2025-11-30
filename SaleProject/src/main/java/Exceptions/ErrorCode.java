@@ -17,6 +17,9 @@ public enum ErrorCode {
     PRODUCT_NOT_EXISTED(1005, "Sản phẩm không tồn tại", HttpStatus.BAD_REQUEST),
     PRODUCT_IMAGES_NOT_ENOUGH(1005, "Cần tải lên ít nhất 4 ảnh", HttpStatus.BAD_REQUEST),
     CART_NOT_EXISTED(1002, "Giỏ hàng không tồn tại", HttpStatus.BAD_REQUEST),
+    INVALID_RATING(1002, "Hãy nhập đúng rating", HttpStatus.BAD_REQUEST),
+    CAN_NOT_RATING(1002, "Không được để trống rating", HttpStatus.BAD_REQUEST),
+
     VERIFY_LINK_EXPIRED(1050, "Link xác thực hết hạn!", HttpStatus.BAD_REQUEST);
 
 
