@@ -1,7 +1,7 @@
 package Controller.product;
 
 
-import Services.product.GetDetailProducts;
+import Services.product.GetDetailProductsServices;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class GetDetailProductController {
     @Autowired
-    private GetDetailProducts getDetailProducts;
+    private GetDetailProductsServices getDetailProducts;
 
     @GetMapping("/GetDetailProduct")
     @PreAuthorize("hasRole('MEMBER')")

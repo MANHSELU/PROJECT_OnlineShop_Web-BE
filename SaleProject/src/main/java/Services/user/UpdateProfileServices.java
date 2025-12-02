@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UpdateProfileService {
+public class UpdateProfileServices {
     @Autowired
     private UserRepository userRepository;
     public void updateProfile(int user_id, UpdateProfileDTO updateProfileDTO) {

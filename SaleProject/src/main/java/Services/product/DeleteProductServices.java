@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class DeleteProductService {
+public class DeleteProductServices {
         @Autowired
         private ProductRepository productRepository;
         @Autowired

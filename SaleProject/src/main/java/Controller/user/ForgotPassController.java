@@ -1,10 +1,9 @@
 package Controller.user;
 
 import DTO.ForgotPassDTO;
-import Services.user.ForgotPassService;
+import Services.user.ForgotPassServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ForgotPassController {
     @Autowired
-    private ForgotPassService forgotPassService;
+    private ForgotPassServices forgotPassService;
     @PostMapping("/sendOTP")
     public ResponseEntity<?> forgotPass(@RequestBody ForgotPassDTO forgotPassDTO) {
         try {
