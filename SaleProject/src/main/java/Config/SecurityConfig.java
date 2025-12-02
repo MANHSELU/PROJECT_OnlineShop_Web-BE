@@ -33,7 +33,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())   // tắt CSRF
                 .cors(cors -> cors.disable())   // tắt CORS (chỉ test)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login","/api/register","/api/verify","/api/sendOTP","/api/resetPass","/api/searchProduct","/api/findByCategory").permitAll()
+                        .requestMatchers("/api/login","/api/register","/api/verify","/api/sendOTP","/api/resetPass","/api/searchProduct",
+                                "/api/findByCategory","/api/filterProductByPriceASC","/api/filterProductByPriceDESC","/api/filterProductByNameASC",
+                                "/api/filterProductByNameDESC").permitAll()
                         .requestMatchers("/api/profile","/api/AddShoppingCart", "/api/AddFavourite","/api/getAllProduct"
                                 ,"/api/CheckOrder","/api/createNewProducts","/api/updateProfile","/api/changePass","/api/updateProduct",
                                 "/api/deleteProduct","/api/addReview").authenticated()

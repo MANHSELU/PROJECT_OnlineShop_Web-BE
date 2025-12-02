@@ -1,6 +1,6 @@
 package Controller.product;
 
-import Services.product.DeleteProductService;
+import Services.product.DeleteProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class DeleteProductController {
     @Autowired
-    private DeleteProductService deleteProductService;
+    private DeleteProductServices deleteProductService;
     @DeleteMapping("/deleteProduct")
     @PreAuthorize("hasRole('MEMBER')")
     public ResponseEntity<?> deleteProduct(@RequestParam int productId){

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GetProfileService {
+public class GetProfileServices {
     @Autowired
     private UserRepository userRepository;
     public Users  getProfile(String email) {

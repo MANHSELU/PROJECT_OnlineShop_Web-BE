@@ -1,7 +1,7 @@
 package Controller.user;
 
 import DTO.LoginDTO;
-import Services.user.LoginService;
+import Services.user.LoginServices;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,11 @@ import java.util.Map;
 @RequestMapping("/api")
 public class LoginController {
     @Autowired
-    private LoginService loginService;
+    private LoginServices loginServices;
         @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
         try {
-            String token = loginService.Login(loginDTO,response);
+            String token = loginServices.Login(loginDTO,response);
             return ResponseEntity.ok(Map.of(
                     "accessToken",token,
                     "messages", "Log in success"

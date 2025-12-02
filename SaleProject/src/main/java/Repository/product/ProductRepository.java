@@ -21,4 +21,12 @@ public interface ProductRepository extends JpaRepository<Products, Integer> {
     List<Products> FindByProductName(@RequestParam("productName") String productName);
     @Query(value = "select * from Products where category_id = :category_id", nativeQuery = true)
     List<Products> FindByCategory(@Param("category_id") int category_id);
+    @Query(value = "select * from Products order by product_price asc",nativeQuery = true)
+    List<Products> FindByPriceASC();
+    @Query(value = "select * from Products order by product_price desc",nativeQuery = true)
+    List<Products> FindByPriceDESC();
+    @Query(value = "select * from Products order by product_name asc",nativeQuery = true)
+    List<Products> FindByProductNameASC();
+    @Query(value = "select * from Products order by product_name desc",nativeQuery = true)
+    List<Products> FindByProductNameDESC();
 }

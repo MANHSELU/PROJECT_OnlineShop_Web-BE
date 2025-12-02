@@ -1,6 +1,5 @@
 package Services.user;
 
-import DTO.ForgotPassDTO;
 import Exceptions.AppException;
 import Exceptions.ErrorCode;
 import Model.Users;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class ForgotPassService {
+public class ForgotPassServices {
     @Autowired
     private UserRepository  userRepository;
     @Autowired

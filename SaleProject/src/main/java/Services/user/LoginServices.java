@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 @Service
-public class LoginService {
+public class LoginServices {
     @Autowired
     private UserRepository userRepository;
     @Autowired

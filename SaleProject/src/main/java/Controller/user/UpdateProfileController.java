@@ -3,7 +3,7 @@ package Controller.user;
 import DTO.UpdateProfileDTO;
 import Model.Users;
 import Repository.user.UserRepository;
-import Services.user.UpdateProfileService;
+import Services.user.UpdateProfileServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class UpdateProfileController {
     @Autowired
-    private UpdateProfileService updateProfileService;
+    private UpdateProfileServices updateProfileServices;
     @Autowired
     private UserRepository userRepository;
     @PatchMapping("/updateProfile")
@@ -28,7 +28,7 @@ public class UpdateProfileController {
     try {
         String email = (String) authentication.getPrincipal();
         Users users = userRepository.FindByEmail(email);
-        updateProfileService.updateProfile(users.getUser_id(),updateProfileDTO);
+        updateProfileServices.updateProfile(users.getUser_id(),updateProfileDTO);
         return ResponseEntity.ok(Map.of("message","update profile success"));
     }catch (Exception ex){
         return ResponseEntity.badRequest().body(ex.getMessage());

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service // Đánh dấu để springboot biết đây là lớp service
-public class GetDetailProducts {
+public class GetDetailProductsServices {
     @Autowired
     private ProductRepository productRepository;
     public Products getDetailProducts (int product_id){
