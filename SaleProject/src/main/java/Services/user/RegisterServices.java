@@ -40,6 +40,7 @@ public class RegisterServices {
         users.setEmail(registerDTO.getEmail());
         users.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         users.setIs_account_enabled(false);
+        users.setStatus(Users.Status.ACTIVE);
         String token = UUID.randomUUID().toString();
         users.setToken(token);
         users.setToken_created_at(LocalDateTime.now());

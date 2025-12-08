@@ -11,6 +11,7 @@ public enum ErrorCode {
     USER_EXISTED(1002, "Người dùng đã tồn tại", HttpStatus.BAD_REQUEST),
     USER_NOT_EXISTED(1002, "Người dùng không tồn tồn tại", HttpStatus.BAD_REQUEST),
     USER_NOT_ENABLED(1003, "Người dùng không tồn tồn tại", HttpStatus.BAD_REQUEST),
+    USER_BANNED(1003, "Người dùng đã bị cấm", HttpStatus.BAD_REQUEST),
     OTP_EXISTED(1002, "OTP vừa gửi còn hiệu lực, vui lòng nhập OTP", HttpStatus.BAD_REQUEST),
     INVALID_OTP(1002, "OTP không tồn tại hoặc không còn hiệu lực", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD(1004, "Mật khẩu không đúng", HttpStatus.BAD_REQUEST),

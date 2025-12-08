@@ -17,7 +17,7 @@ public class AddNewProductController {
     private AddNewProductServices addNewProductServices;
 
     @PostMapping("/createNewProducts")
-    @PreAuthorize("hasRole('MEMBER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createNewProducts(@ModelAttribute CreateProductDTO createProductDTO , @RequestParam("images") MultipartFile[] files) {
         try {
             addNewProductServices.AddNewProduct(createProductDTO,files);

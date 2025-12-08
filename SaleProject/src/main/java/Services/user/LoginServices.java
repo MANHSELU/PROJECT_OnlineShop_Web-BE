@@ -31,6 +31,9 @@ public class LoginServices {
         if (!users.isIs_account_enabled()) {
             throw new AppException(ErrorCode.USER_NOT_ENABLED);
         }
+        if(users.getStatus().equals(Users.Status.BANNED)){
+            throw new AppException(ErrorCode.USER_BANNED);
+        }
         if (!passwordEncoder.matches(loginDTO.getPassword(), users.getPassword())) {
             throw new AppException(ErrorCode.INVALID_PASSWORD);
         }
