@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,4 +17,6 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
     Optional<Users> FindByToken(@Param("token") String token);
     @Query(value = "select * from Users where Users.user_id = :user_id",nativeQuery = true)
     Users FindById(@Param("user_id") int user_id);
+    @Query(value = "select * from Users where Users.role = 'MEMBER'",nativeQuery = true)
+    List<Users> FindAll();
 }

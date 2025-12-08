@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
         private Role role;          // ===> Nên phải dùng @Enumerated(EnumType.STRING) để đổi lại dạng String
         @Column(name = "is_account_enabled")
         private boolean is_account_enabled;
+        @Column(name = "status")
+        @Enumerated(EnumType.STRING)
+        private Status status;
         @Column(name = "token")
         private String token; // ===> token cho xác nhận đăng kí
         @Column(name = "token_created_at")
@@ -42,8 +45,18 @@ import java.time.LocalDateTime;
         public enum Role {
             GUEST, MEMBER, ADMIN
         }
-
+        public enum Status{
+            ACTIVE,BANNED
+        }
         public Users() {
+        }
+
+        public Status getStatus() {
+            return status;
+        }
+
+        public void setStatus(Status status) {
+            this.status = status;
         }
 
         public String getOtp() {

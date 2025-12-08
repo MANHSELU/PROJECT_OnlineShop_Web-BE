@@ -7,7 +7,6 @@ public class AppException extends RuntimeException{
         super(errorCode.getMessage()); // truyền messasage cho RuntimeException để khi mà try catch thì e.getMessage là lấy được lỗi từ ErrorCode
         this.errorCode = errorCode;
     }
-
     public ErrorCode getErrorCode() {
         return errorCode;
     }
