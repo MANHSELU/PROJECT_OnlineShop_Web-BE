@@ -1,111 +1,831 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${pageTitle} ? ${pageTitle} : 'TechTrend - Trang Chủ'">Title</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
-    <link rel="stylesheet" href="/static/Home.css" th:href="@{/static/Home.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ? ${pageTitle} : 'TechTrend – Premium Gaming & Workstation'">TechTrend</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --accent: #a78bfa;
+            --text: #f8fafc;
+            --bg: #0f0f1a;
+            --card: #161627;
+            --border: #2d2d44;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            background: linear-gradient(to bottom, rgba(15, 15, 26, 0.95), rgba(15, 15, 26, 0.8));
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #a78bfa, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 4rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            margin-right: auto;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -8px;
+            left: 50%;
+            background: var(--primary);
+            transition: all .8s;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-actions a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .nav-actions a i {
+            margin-right: 8px;
+        }
+
+        /* HERO 3D */
+        .hero-3d {
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a14, #1a1a2e, #16213e);
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            max-width: 1000px;
+            pointer-events: none;
+        }
+
+        .hero-content h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            letter-spacing: -3px;
+            background: linear-gradient(90deg, #e0e7ff, #a78bfa, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin: 1.5rem 0 2.5rem;
+        }
+
+        .btn-premium {
+            pointer-events: all;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 15px 40px rgba(99, 102, 241, .4);
+            transition: all .4s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, .6);
+        }
+
+        /* MARQUEE */
+        .products-marquee {
+            padding: 140px 5% 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #e0e7ff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .marquee-container {
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0;
+        }
+
+        .marquee-container::before, .marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg), transparent);
+        }
+
+        .marquee-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg), transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: scroll 48s linear infinite;
+        }
+
+        .marquee-items {
+            display: flex;
+            gap: 5rem;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .marquee-items img {
+            height: 150px !important;
+            width: 260px !important;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 24px;
+            flex-shrink: 0;
+            filter: grayscale(100%) brightness(0.7);
+            transition: all .6s;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .5);
+        }
+
+        .marquee-items img:hover {
+            filter: grayscale(0%) brightness(1.1);
+            transform: translateY(-25px) scale(1.18);
+            box-shadow: 0 35px 70px rgba(99, 102, 241, .6);
+        }
+
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0)
+            }
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* SẢN PHẨM BÁN CHẠY – ĐÃ CÓ MÔ TẢ SƠ */
+        .hot-products {
+            padding: 80px 5% 140px;
+            background: var(--bg);
+        }
+
+        .hot-products .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all .4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            border-color: var(--accent);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform .5s;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .product-info {
+            padding: 1.4rem;
+            text-align: left;
+        }
+
+        .product-info h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #e2e8f0;
+            line-height: 1.3;
+        }
+
+        /* MÔ TẢ SƠ MỚI */
+        .product-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0.6rem 0 0.8rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #a78bfa;
+            margin: 0.5rem 0;
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(99, 102, 241, 0.9);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .btn-detail {
+            flex: 1;
+            background: transparent;
+            color: #cbd5e1;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            transition: all .3s;
+        }
+
+        .btn-detail:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-cart {
+            width: 37px;
+            height: 37px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns:repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns:repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .product-grid {
+                grid-template-columns:1fr;
+            }
+        }
+        /* ============== PHẦN TIN CÔNG NGHỆ ============== */
+        .news-section {
+            padding: 120px 5%;
+            background: linear-gradient(to bottom, var(--bg), #0a0a14);
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .news-card {
+            background: var(--card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .news-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 60px rgba(99,102,241,0.25);
+        }
+        .news-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .news-info {
+            padding: 1.8rem;
+        }
+        .news-info h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #e2e8f0;
+        }
+        .news-info p {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .news-meta {
+            font-size: 0.85rem;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        /* ============== TẠI SAO CHỌN TECHTREND ============== */
+        .why-choose {
+            padding: 140px 5% 160px;
+            background: #0a0a14;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .why-item {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--card);
+            border-radius: 24px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(167,139,250,0.1);
+        }
+        .why-item:hover {
+            transform: translateY(-20px);
+            background: rgba(167,139,250,0.08);
+            border-color: var(--accent);
+            box-shadow: 0 25px 60px rgba(167,139,250,0.15);
+        }
+        .why-item i {
+            font-size: 3.8rem;
+            color: #a78bfa;
+        }
+        .why-item h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #e2e8f0;
+        }
+        .why-item p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        .view-all-wrapper {
+            text-align: center;
+        }
+        .btn-view-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            color: #a78bfa;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 48px;
+            border: 2px solid #a78bfa;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+        }
+        .btn-view-all:hover {
+            background: #a78bfa;
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(167,139,250,0.4);
+        }
+
+        footer {
+            background: #0a0a12;
+            padding: 5rem 5% 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            color: #94a3b8;
+        }
+
+        .footer-section h3 {
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: .8rem;
+            transition: .3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+            color: #64748b;
+        }
+    </style>
 </head>
 <body>
+
+<!-- HEADER -->
 <header>
     <div class="navbar">
-        <div class="logo" th:text="${siteName} ? ${siteName} : 'TechTrend'">TechTrend</div>
-        <div class="divider"></div>
-        <nav>
-            <ul class="nav-links">
-                <li><a th:href="@{#home}">Trang chủ</a></li>
-                <li><a th:href="@{#products}">Sản phẩm</a></li>
-                <li><a th:href="@{#about}">Giới thiệu</a></li>
-                <li><a th:href="@{#contact}">Liên hệ</a></li>
-                <li><a th:href="@{#news}">Tin tức</a></li>
-            </ul>
-            <div class="nav-actions">
-
-                <a class="cart-btn" th:href="@{#cart}"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
-                <div class="divider"></div>
-                <a class="login-btn" th:href="@{#login}">Đăng nhập</a>
-                <div class="divider"></div>
-                <div class="notification-icon">
-                    <i class="fas fa-bell"></i>
-                </div>
-            </div>
-        </nav>
+        <div class="logo">TechTrend</div>
+        <ul class="nav-links">
+            <li><a th:href="@{#home}">Trang chủ</a></li>
+            <li><a th:href="@{#products}">Sản phẩm</a></li>
+            <li><a th:href="@{#about}">Giới thiệu</a></li>
+            <li><a th:href="@{#contact}">Liên hệ</a></li>
+            <li><a th:href="@{#news}">Tin tức</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a th:href="@{#cart}">Giỏ hàng</a>
+            <a th:href="@{#login}">Đăng nhập</a>
+        </div>
     </div>
 </header>
 
+<!-- HERO 3D -->
+<section class="hero-3d" id="home">
+    <model-viewer src="https://cdn.jsdelivr.net/gh/pmndrs/drei-assets@master/laptop2.glb" alt="Premium Laptop"
+                  auto-rotate rotation-per-second="25deg" camera-controls shadow-intensity="2" exposure="1.2"
+                  camera-orbit="45deg 75deg 130%" style="width:100%;height:100%;">
+        <div class="hero-content">
+            <h1>TECHTREND</h1>
+            <p>Trải nghiệm công nghệ đỉnh cao – Laptop Gaming & Workstation Premium</p>
+            <a th:href="@{#products}" class="btn-premium">Khám phá ngay</a>
+        </div>
+    </model-viewer>
+</section>
 
-<section class="hero" id="home">
-    <div class="hero-content">
-        <h1 th:text="${heroTitle} ? ${heroTitle} : 'Chào mừng đến với TechTrend'">Chào mừng đến với TechTrend</h1>
-        <p th:text="${heroSubtitle} ? ${heroSubtitle} : 'Cửa hàng linh kiện điện tử, laptop, PC hàng đầu'">Cửa hàng linh kiện điện tử, laptop, PC hàng đầu</p>
-        <a href="#products" class="btn" th:href="@{#products}">Khám phá ngay</a>
+<!-- MARQUEE THƯƠNG HIỆU -->
+<section class="products-marquee">
+    <div class="section-header">
+        <h2>Thương hiệu đối tác</h2>
+        <p>Chúng tôi tự hào phân phối các thương hiệu cao cấp hàng đầu thế giới</p>
+    </div>
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <div class="marquee-items">
+                <img src="https://images5.alphacoders.com/130/1306174.jpeg" alt="MSI">
+                <img src="https://wallpaperaccess.com/full/3561937.jpg" alt="Asus">
+                <img src="https://tse4.mm.bing.net/th/id/OIP.4pqOO9lqGSrXF2g6XzRRqAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Asus">
+                <img src="https://tse4.mm.bing.net/th/id/OIP.8ZmGMelLTtt6YR7Ay0WN2gHaEo?w=800&h=500&rs=1&pid=ImgDetMain&o=7&rm=3" alt="DELL">
+                <img src="data:image/webp;base64,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" alt="DELL">
+                <img src="https://tse4.mm.bing.net/th/id/OIP.8ZmGMelLTtt6YR7Ay0WN2gHaEo?w=800&h=500&rs=1&pid=ImgDetMain&o=7&rm=3" alt="DELL">
+                <img src="https://th.bing.com/th/id/OIP.azAyNyepfnhseac7bLy3NAHaEK?w=289&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Razer">
+            </div>
+
+        </div>
     </div>
 </section>
 
-<section class="products" id="products">
-    <h2 th:text="${productsTitle} ? ${productsTitle} : 'Sản phẩm nổi bật'">Sản phẩm nổi bật</h2>
+<!-- SẢN PHẨM BÁN CHẠY – ĐÃ CÓ MÔ TẢ SƠ SIÊU ĐẸP -->
+<section class="hot-products">
+    <div class="section-header">
+        <h2>Sản phẩm bán chạy</h2>
+        <p>Top 10 laptop được yêu thích nhất hiện nay</p>
+    </div>
+
     <div class="product-grid">
-        <div class="product-card" th:each="product : ${products}">
-            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
-            <div class="product-info">
-                <h3 th:text="${product.name}">Laptop Gaming</h3>
-                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
-                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+        <!-- HÀNG 1 -->
+        <div class="product-card"><span class="product-tag">GAMING</span><img
+                src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&q=80" alt="Asus ROG">
+            <div class="product-info"><h3>Asus ROG Strix G16</h3>
+                <p class="product-desc">RTX 4080 • i9-13980HX • 32GB RAM • 1TB SSD • 240Hz QHD</p>
+                <div class="product-price">48.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=1'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
             </div>
         </div>
-        <div class="product-card" th:each="product : ${products}">
-            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
-            <div class="product-info">
-                <h3 th:text="${product.name}">Laptop Gaming</h3>
-                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
-                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+
+        <div class="product-card"><span class="product-tag">WORKSTATION</span><img
+                src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&q=80" alt="MacBook">
+            <div class="product-info"><h3>MacBook Pro 16" M3 Max</h3>
+                <p class="product-desc">40-core GPU • 96GB Unified • 8TB SSD • Liquid Retina XDR</p>
+                <div class="product-price">92.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=2'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
             </div>
         </div>
-        <div class="product-card" th:each="product : ${products}">
-            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
-            <div class="product-info">
-                <h3 th:text="${product.name}">Laptop Gaming</h3>
-                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
-                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+
+        <div class="product-card"><span class="product-tag">GAMING</span><img
+                src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80" alt="MSI">
+            <div class="product-info"><h3>MSI Titan GT77 HX</h3>
+                <p class="product-desc">RTX 4090 175W • i9-13980HX • 128GB RAM • 4TB RAID 0</p>
+                <div class="product-price">119.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=3'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
             </div>
         </div>
-        <div class="product-card" th:each="product : ${products}">
-            <img th:src="${product.imageUrl}" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Laptop">
-            <div class="product-info">
-                <h3 th:text="${product.name}">Laptop Gaming</h3>
-                <p th:text="${product.description}">16GB RAM, RTX 3060, Core i7</p>
-                <a href="#" class="btn" th:href="@{'/product/detail?id=' + ${product.id}}">Xem chi tiết</a>
+
+        <div class="product-card"><span class="product-tag">ULTRABOOK</span><img
+                src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=800&q=80" alt="Razer">
+            <div class="product-info"><h3>Dell XPS 17 9730</h3>
+                <p class="product-desc">RTX 4070 • i9-13900H • 64GB RAM • 4K+ Touch OLED</p>
+                <div class="product-price">72.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=4'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card"><span class="product-tag">GAMING</span><img
+                src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=800&q=80" alt="Razer">
+            <div class="product-info"><h3>Razer Blade 16 RTX 4090</h3>
+                <p class="product-desc">Mini-LED 4K/120Hz • i9-13950HX • 64GB RAM • RGB per-key</p>
+                <div class="product-price">89.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=5'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HÀNG 2 -->
+        <div class="product-card"><span class="product-tag">GAMING</span><img
+                src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80" alt="MSI">
+            <div class="product-info"><h3>HP Omen 17 RTX 4080</h3>
+                <p class="product-desc">360Hz FHD • i9-13900HX • 32GB RAM • Tempest Cooling</p>
+                <div class="product-price">58.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=6'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card"><span class="product-tag">WORKSTATION</span><img
+                src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80" alt="MSI">
+            <div class="product-info"><h3>Lenovo ThinkPad P16</h3>
+                <p class="product-desc">RTX 5000 Ada • Xeon w9-3495X • 128GB ECC • ISV Certified</p>
+                <div class="product-price">78.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=7'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card"><span class="product-tag">GAMING</span><img
+                src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80" alt="MSI">
+            <div class="product-info"><h3>Acer Predator Helios 18</h3>
+                <p class="product-desc">Mini-LED 250Hz • i9-13900HX • RTX 4090 • 64GB RAM</p>
+                <div class="product-price">69.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=8'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card"><span class="product-tag">ULTRABOOK</span><img
+                src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80" alt="MSI">
+            <div class="product-info"><h3>LG Gram 17 2025</h3>
+                <p class="product-desc">Chỉ 1.35kg • Intel Evo • 32GB RAM • Pin 20 giờ</p>
+                <div class="product-price">45.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=9'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card"><span class="product-tag">GAMING</span><img
+                src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&q=80" alt="Gigabyte">
+            <div class="product-info"><h3>Gigabyte Aorus 17X</h3>
+                <p class="product-desc">RTX 4090 • i9-13980HX • Mechanical Keyboard • 360Hz</p>
+                <div class="product-price">75.990.000đ</div>
+                <div class="product-actions"><a th:href="@{'/product/detail?id=10'}" class="btn-detail">Xem chi tiết</a>
+                    <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:5rem;">
+        <a th:href="@{#products}" class="btn-premium" style="padding:20px 70px; font-size:1.3rem;">Xem tất cả sản
+            phẩm</a>
+    </div>
+</section>
+<!-- ====================== TIN CÔNG NGHỆ MỚI NHẤT ====================== -->
+<section class="news-section" id="news">
+    <div class="section-header">
+        <h2>Tin công nghệ mới nhất</h2>
+        <p>Cập nhật nhanh những xu hướng và sản phẩm hot nhất 2025</p>
+    </div>
+    <div class="news-grid">
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="RTX 50 Series">
+            <div class="news-info">
+                <h3>RTX 5090 chính thức ra mắt – hiệu năng tăng 70%</h3>
+                <p>NVIDIA vừa công bố dòng card đồ họa Blackwell với kiến trúc hoàn toàn mới, hứa hẹn thay đổi cuộc chơi gaming và AI.</p>
+                <div class="news-meta">2 giờ trước • 12.845 lượt xem</div>
+            </div>
+        </div>
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=800&q=80" alt="Intel Lunar Lake">
+            <div class="news-info">
+                <h3>Intel Lunar Lake: CPU laptop tiết kiệm điện nhất lịch sử</h3>
+                <p>Pin lên đến 30+ giờ, hiệu năng AI vượt trội, sẵn sàng cho kỷ nguyên Copilot+ PC.</p>
+                <div class="news-meta">5 giờ trước • 8.221 lượt xem</div>
+            </div>
+        </div>
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="M4 Pro">
+            <div class="news-info">
+                <h3>MacBook Pro M4 Pro & M4 Max: Nhanh hơn 40% so với M3</h3>
+                <p>Apple tiếp tục dẫn đầu về hiệu suất trên mỗi watt điện tiêu thụ.</p>
+                <div class="news-meta">1 ngày trước • 15.392 lượt xem</div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ====================== TẠI SAO CHỌN TECHTREND ====================== -->
+<section class="why-choose">
+    <div class="section-header">
+        <h2>Tại sao hàng nghìn khách hàng chọn TechTrend?</h2>
+    </div>
+    <div class="why-grid">
+        <div class="why-item">
+            <i class="fas fa-medal"></i>
+            <h3>Bảo hành vàng 36 tháng</h3>
+            <p>1 đổi 1 trong 30 ngày • Hỗ trợ 24/7</p>
+        </div>
+        <div class="why-item">
+            <i class="fas fa-tags"></i>
+            <h3>Giá luôn tốt nhất</h3>
+            <p>Cam kết giá rẻ nhất thị trường hoặc hoàn tiền</p>
+        </div>
+        <div class="why-item">
+            <i class="fas fa-certificate"></i>
+            <h3>Hàng chính hãng 100%</h3>
+            <p>Tem bảo hành điện tử • Xuất hóa đơn đầy đủ</p>
+        </div>
+        <div class="why-item">
+            <i class="fas fa-headset"></i>
+            <h3>Tư vấn chuyên sâu</h3>
+            <p>Đội ngũ kỹ thuật viên trên 10 năm kinh nghiệm</p>
+        </div>
+        <div class="why-item">
+            <i class="fas fa-credit-card"></i>
+            <h3>Trả góp 0%</h3>
+            <p>Hỗ trợ trả góp qua 20+ ngân hàng & ví điện tử</p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
 <footer id="contact">
     <div class="footer-content">
-        <div class="footer-section">
-            <h3 th:text="${aboutTitle} ? ${aboutTitle} : 'Về TechTrend'">Về TechTrend</h3>
-            <p th:text="${aboutDescription} ? ${aboutDescription} : 'Chuyên cung cấp linh kiện điện tử, laptop, PC chất lượng cao với giá cả cạnh tranh.'">Chuyên cung cấp linh kiện điện tử, laptop, PC chất lượng cao với giá cả cạnh tranh.</p>
-        </div>
-        <div class="footer-section">
-            <h3 th:text="${linksTitle} ? ${linksTitle} : 'Liên kết nhanh'">Liên kết nhanh</h3>
-            <ul>
-                <li><a href="#home" th:href="@{#home}">Trang chủ</a></li>
-                <li><a href="#products" th:href="@{#products}">Sản phẩm</a></li>
-                <li><a href="#about" th:href="@{#about}">Giới thiệu</a></li>
-                <li><a href="#contact" th:href="@{#contact}">Liên hệ</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h3 th:text="${contactTitle} ? ${contactTitle} : 'Liên hệ'">Liên hệ</h3>
-            <p th:text="${contactEmail} ? ${contactEmail} : 'Email: support@techtrend.vn'">Email: support@techtrend.vn</p>
-            <p th:text="${contactPhone} ? ${contactPhone} : 'Hotline: 0123 456 789'">Hotline: 0123 456 789</p>
-            <p th:text="${contactAddress} ? ${contactAddress} : 'Địa chỉ: 123 Đường Công Nghệ, TP.HCM'">Địa chỉ: 123 Đường Công Nghệ, TP.HCM</p>
-        </div>
+        <div class="footer-section"><h3>Về TechTrend</h3>
+            <p>Nhà phân phối laptop gaming & workstation cao cấp hàng đầu Việt Nam.</p></div>
+        <div class="footer-section"><h3>Liên kết nhanh</h3><a th:href="@{#home}">Trang chủ</a><a th:href="@{#products}">Sản
+            phẩm</a><a th:href="@{#about}">Giới thiệu</a><a th:href="@{#contact}">Liên hệ</a></div>
+        <div class="footer-section"><h3>Liên hệ</h3>
+            <p>Email: premium@techtrend.vn</p>
+            <p>Hotline: 1800 2025</p>
+            <p>Showroom: 268 Lý Thường Kiệt, Q.10, TP.HCM</p></div>
     </div>
-    <div class="footer-bottom">
-        <p th:text="'&copy; ' + ${currentYear} + ' TechTrend. Mọi quyền được bảo lưu.'">&copy; 2025 TechTrend. Mọi quyền được bảo lưu.</p>
-    </div>
+    <div class="footer-bottom"><p>© 2025 TechTrend. Tất cả quyền được bảo lưu.</p></div>
 </footer>
+
 </body>
 </html>
