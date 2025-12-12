@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +29,20 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOrigins("http://localhost:63342")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowCredentials(true)
+                        .allowedHeaders("*");
+            }
+        };
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
@@ -35,7 +51,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login","/api/register","/api/verify","/api/sendOTP","/api/resetPass","/api/searchProduct",
                                 "/api/findByCategory","/api/filterProductByPriceASC","/api/filterProductByPriceDESC","/api/filterProductByNameASC",
-                                "/api/filterProductByNameDESC").permitAll()
+                                "/api/filterProductByNameDESC","/api/home").permitAll()
                         .requestMatchers("/api/profile","/api/AddShoppingCart", "/api/AddFavourite","/api/getAllProduct","/api/unBanUser","/api/banUser"
                                 ,"/api/CheckOrder","/api/createNewProducts","/api/updateProfile","/api/changePass","/api/updateProduct",
                                 "/api/deleteProduct","/api/addReview").authenticated()
