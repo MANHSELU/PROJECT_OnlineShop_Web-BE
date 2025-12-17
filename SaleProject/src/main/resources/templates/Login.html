@@ -7,7 +7,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <link rel="stylesheet" th:href="@{/css/toast.css}" />
+    <script th:src="@{/js/toast.js}" defer></script>
     <style>
         :root {
             --primary: #6366f1;
@@ -29,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* HEADER */
         header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -53,7 +53,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* LOGIN WRAPPER */
         .login-wrapper {
             flex: 1;
             display: flex;
@@ -88,7 +87,6 @@
             font-size: 1.1rem;
         }
 
-        /* SOCIAL BUTTONS – KHÔNG GẠCH CHÂN */
         .social-login {
             display: flex;
             justify-content: center;
@@ -134,7 +132,6 @@
             padding: 0 1rem;
         }
 
-        /* INPUT GROUP */
         .input-group {
             position: relative;
             margin-bottom: 1.5rem;
@@ -156,13 +153,11 @@
             box-shadow: 0 0 0 3px rgba(167,139,250,0.2);
         }
 
-        /* TẮT ICON MẮT CỦA TRÌNH DUYỆT (CHỈ DÙNG CÁI CỦA MÌNH) */
         input::-ms-reveal,
         input::-ms-clear {
             display: none !important;
         }
 
-        /* ICON HIỆN/ẨN MẬT KHẨU */
         .password-group {
             position: relative;
         }
@@ -227,7 +222,6 @@
             text-decoration: underline;
         }
 
-        /* FOOTER */
         footer {
             background: #0a0a12;
             padding: 4rem 5% 2rem;
@@ -304,7 +298,6 @@
     </div>
     <div class="footer-bottom"><p>© 2025 TechTrend. Tất cả quyền được bảo lưu.</p></div>
 </footer>
-
 <script>
     function togglePassword() {
         const passwordField = document.getElementById('password');
@@ -321,25 +314,30 @@
         }
     }
 </script>
-<script>
+<script defer>
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const req = {
-            email: document.getElementById("email").value,
-            password: document.getElementById("password").value
-        };
-        const res = await fetch("http://localhost:8080/api/login", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            credentials: "include",
-            body: JSON.stringify(req)
-        });
-        const data = await res.json();
-        if (res.ok) {
-            alert("Đăng nhập thành công")
-            window.location.href = "http://localhost:8080/api/home";
-        } else {
-            alert("Đăng nhập thất bại")
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        try {
+            const res = await fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                showSuccess(data.message || "Đăng nhập thành công!");
+                setTimeout(() => location.href = "/home", 2500);
+            } else {
+                showError(data.error || "Email hoặc mật khẩu không đúng");
+            }
+        } catch (err) {
+            showError("Lỗi kết nối server. Vui lòng thử lại!");
         }
     });
 </script>

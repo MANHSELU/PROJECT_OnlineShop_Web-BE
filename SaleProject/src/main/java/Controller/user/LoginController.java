@@ -28,11 +28,8 @@ public class LoginController {
                     "messages", "Log in success"
             ));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("error",ex.getMessage()));
         }
     }
-     @GetMapping("/home")
-    public String homePage(){
-            return "Home";
-     }
+
 }
