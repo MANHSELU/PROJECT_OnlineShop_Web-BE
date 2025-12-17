@@ -30,32 +30,26 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:63342")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowCredentials(true)
-                        .allowedHeaders("*");
-            }
-        };
-    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())   // tắt CSRF
                 .cors(cors -> cors.disable())   // tắt CORS (chỉ test)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login","/api/register","/api/verify","/api/sendOTP","/api/resetPass","/api/searchProduct",
-                                "/api/findByCategory","/api/filterProductByPriceASC","/api/filterProductByPriceDESC","/api/filterProductByNameASC",
-                                "/api/filterProductByNameDESC","/api/home").permitAll()
-                        .requestMatchers("/api/profile","/api/AddShoppingCart", "/api/AddFavourite","/api/getAllProduct","/api/unBanUser","/api/banUser"
-                                ,"/api/CheckOrder","/api/createNewProducts","/api/updateProfile","/api/changePass","/api/updateProduct",
-                                "/api/deleteProduct","/api/addReview").authenticated()
-                        .anyRequest().authenticated()   // cho phép tất cả request
+                        .requestMatchers(
+                                "/loginPage",
+                                "/home",
+                                "/css/**",
+                                "/js/**"
+                        ).permitAll()
+                        .requestMatchers("/api/login", "/api/register", "/api/verify", "/api/sendOTP", "/api/resetPass", "/api/searchProduct",
+                                "/api/findByCategory", "/api/filterProductByPriceASC", "/api/filterProductByPriceDESC", "/api/filterProductByNameASC",
+                                "/api/filterProductByNameDESC").permitAll()
+                        .requestMatchers("/api/profile", "/api/AddShoppingCart", "/api/AddFavourite", "/api/getAllProduct", "/api/unBanUser", "/api/banUser"
+                                , "/api/CheckOrder", "/api/createNewProducts", "/api/updateProfile", "/api/changePass", "/api/updateProduct",
+                                "/api/deleteProduct", "/api/addReview").authenticated()
+                        .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
