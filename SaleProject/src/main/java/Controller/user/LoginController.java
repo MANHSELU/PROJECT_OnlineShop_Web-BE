@@ -25,7 +25,7 @@ public class LoginController {
             cookie.setPath("/");
             response.addCookie(cookie);
             return ResponseEntity.ok(Map.of(
-                    "messages", "Log in success"
+                    "messages", "Log in success","token", token
             ));
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(Map.of("error",ex.getMessage()));

@@ -17,7 +17,7 @@ public class GetProfileController {
     private GetProfileServices getProfileServices;
 
     @GetMapping("/profile")
-    @PreAuthorize("hasRole('MEMBER')") // Chỉ người dùng đăng nhập có role là member mới vào được api này.
+    @PreAuthorize("hasRole('MEMBER')")
     public Users getProfile(Authentication authentication) {
          try {
              String email = (String) authentication.getPrincipal();

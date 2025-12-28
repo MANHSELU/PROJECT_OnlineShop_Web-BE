@@ -9,8 +9,8 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
     @Id
-    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private int order_id;
     @ManyToOne
     @JoinColumn(name = "user_id")
