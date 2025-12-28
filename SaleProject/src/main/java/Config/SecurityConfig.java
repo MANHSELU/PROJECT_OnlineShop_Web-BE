@@ -45,7 +45,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers("/api/login", "/api/register", "/api/verify", "/api/sendOTP", "/api/resetPass", "/api/searchProduct",
                                 "/api/findByCategory", "/api/filterProductByPriceASC", "/api/filterProductByPriceDESC", "/api/filterProductByNameASC",
-                                "/api/filterProductByNameDESC").permitAll()
+                                "/api/filterProductByNameDESC","/api/sendMessages","/api/getMessage").permitAll()
                         .requestMatchers("/api/profile", "/api/AddShoppingCart", "/api/AddFavourite", "/api/getAllProduct", "/api/unBanUser", "/api/banUser"
                                 , "/api/CheckOrder", "/api/createNewProducts", "/api/updateProfile", "/api/changePass", "/api/updateProduct",
                                 "/api/deleteProduct", "/api/addReview").authenticated()
