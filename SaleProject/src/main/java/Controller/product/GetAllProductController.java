@@ -1,5 +1,6 @@
 package Controller.product;
 
+import Exceptions.AppException;
 import Model.Products;
 import Services.product.GetAllProductsServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +17,15 @@ import java.util.Map;
 public class GetAllProductController {
     @Autowired
     private GetAllProductsServices getAllProductsServices;
+
     @GetMapping("/getAllProduct")
     @PreAuthorize("hasRole('MEMBER')")
-    public ResponseEntity<?> getAllProduct(){
+    public ResponseEntity<?> getAllProduct() {
         try {
             List<Products> prodcutList = getAllProductsServices.getAllProducts();
-            return ResponseEntity.ok(Map.of("Get All Products Sucessfully", prodcutList));
-        }catch (Exception ex){
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            return ResponseEntity.status(200).body(prodcutList);
+        } catch (AppException ex) {
+            return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));
         }
     }
 }

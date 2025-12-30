@@ -1,6 +1,8 @@
 package Controller.product;
 
 
+import Exceptions.AppException;
+import Model.Products;
 import Services.product.GetDetailProductsServices;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,13 @@ public class GetDetailProductController {
 
     @GetMapping("/GetDetailProduct")
     @PreAuthorize("hasRole('MEMBER')")
-    public ResponseEntity<?> GetDetailController(HttpServletRequest request){
+    public ResponseEntity<?> GetDetailController(HttpServletRequest request) {
         try {
             int product_id = Integer.parseInt(request.getParameter("product_id"));
-            getDetailProducts.getDetailProducts(product_id);
-            return ResponseEntity.ok(Map.of("Get Detail Products Sucessfully", getDetailProducts.getDetailProducts(product_id)));
-        }catch (Exception ex){
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            Products products = getDetailProducts.getDetailProducts(product_id);
+            return ResponseEntity.status(200).body(products);
+        } catch (AppException ex) {
+            return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));
         }
     }
 

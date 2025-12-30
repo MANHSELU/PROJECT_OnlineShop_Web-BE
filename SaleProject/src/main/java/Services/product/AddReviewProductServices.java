@@ -10,7 +10,6 @@ import Repository.product.ReviewRepository;
 import Repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 
 @Service
@@ -21,13 +20,14 @@ public class AddReviewProductServices {
     private ProductRepository productRepository;
     @Autowired
     private UserRepository userRepository;
-    public void addReview(int user_id, int product_id, int rating,String comment){
+
+    public Reviews addReview(int user_id, int product_id, int rating, String comment) {
         Users user = userRepository.FindById(user_id);
-        if(user==null){
+        if (user == null) {
             throw new AppException(ErrorCode.USER_NOT_EXISTED);
         }
         Products product = productRepository.FindById(product_id);
-        if(product==null){
+        if (product == null) {
             throw new AppException(ErrorCode.PRODUCT_NOT_EXISTED);
         }
         if (rating < 1 || rating > 5) {
@@ -40,5 +40,6 @@ public class AddReviewProductServices {
         review.setComment(comment);
         review.setCreateAt(LocalDateTime.now());
         reviewRepository.save(review);
+        return review;
     }
 }

@@ -14,7 +14,6 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,8 @@ public class AddNewProductServices {
     private Cloudinary cloudinary;
     @Autowired
     private ImgRepository imgRepository;
-    // Hàm up 1 ảnh
-    public Images uploadFile(MultipartFile file,Products products) throws IOException {
+
+    public Images uploadFile(MultipartFile file, Products products) throws IOException {
         Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
         Images images = new Images();
         images.setImg_url(uploadResult.get("secure_url").toString());
@@ -40,30 +39,21 @@ public class AddNewProductServices {
         imgRepository.save(images);
         return images;
     }
-    //uploadResult trả về là một Map<String, Object>, ví dụ khi upload ảnh kết quả có thể là : {
-    //  "asset_id": "abc123",
-    //  "public_id": "folder/image123",
-    //  "version": 1730000000,
-    //  "signature": "xyz",
-    //  "secure_url": "https://res.cloudinary.com/.../image123.jpg",
-    //  ...
-    //}
 
-    // Hàm up nhiều ảnh
-    public List<Images> uploadMultiImageFiles(MultipartFile[] files,Products products) throws IOException {
-            List<Images> imagesList  = new ArrayList<>();
-            for(MultipartFile file : files){
-                try {
-                    Images images = uploadFile(file,products);
-                    imagesList.add(images);
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
+    public List<Images> uploadMultiImageFiles(MultipartFile[] files, Products products) throws IOException {
+        List<Images> imagesList = new ArrayList<>();
+        for (MultipartFile file : files) {
+            try {
+                Images images = uploadFile(file, products);
+                imagesList.add(images);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
+        }
         return imagesList;
     }
-    // Hàm thêm sản phẩm mới
-    public void AddNewProduct(CreateProductDTO createProductDTO,MultipartFile[] images) throws IOException {
+
+    public Products AddNewProduct(CreateProductDTO createProductDTO, MultipartFile[] images) throws IOException {
         Category category = categoryRepository.FindById(createProductDTO.getCategory_id());
         Products products = new Products();
         products.setProduct_name(createProductDTO.getProduct_name());
@@ -73,9 +63,10 @@ public class AddNewProductServices {
         products.setProduct_price(createProductDTO.getProduct_price());
         productRepository.save(products);
         if (images != null && images.length >= 4) {
-            uploadMultiImageFiles(images,products);
-        }else{
+            uploadMultiImageFiles(images, products);
+        } else {
             throw new AppException(ErrorCode.PRODUCT_IMAGES_NOT_ENOUGH);
         }
+        return products;
     }
 }

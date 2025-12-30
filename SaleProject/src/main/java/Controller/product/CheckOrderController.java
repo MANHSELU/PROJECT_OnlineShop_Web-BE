@@ -1,8 +1,9 @@
 package Controller.product;
 
 
+import Exceptions.AppException;
+import Model.Order;
 import Model.Users;
-import Repository.product.OrderRepository;
 import Repository.user.UserRepository;
 import Services.product.CheckOutOrderServices;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
 import java.util.Map;
 
 @RestController
@@ -25,17 +24,18 @@ public class CheckOrderController {
     private CheckOutOrderServices checkOutOrderServices;
     @Autowired
     private UserRepository userRepository;
+
     @PostMapping("/CheckOrder")
     @PreAuthorize("hasRole('MEMBER')")
-    public ResponseEntity<?> checkOut(Authentication authentication, HttpServletRequest request , @RequestBody Double total_price) {
-    try {
-        String email = (String) authentication.getPrincipal();
-        Users users = userRepository.FindByEmail(email);
-        int product_id = Integer.parseInt(request.getParameter("product_id"));
-        checkOutOrderServices.CheckoutOrder(users.getUser_id(),product_id,total_price);
-        return  ResponseEntity.ok(Map.of("status","Check out Order success"));
-    }catch (Exception ex){
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
+    public ResponseEntity<?> checkOut(Authentication authentication, HttpServletRequest request, @RequestBody Double total_price) {
+        try {
+            String email = (String) authentication.getPrincipal();
+            Users users = userRepository.FindByEmail(email);
+            int product_id = Integer.parseInt(request.getParameter("product_id"));
+            Order order = checkOutOrderServices.CheckoutOrder(users.getUser_id(), product_id, total_price);
+            return ResponseEntity.status(200).body(order);
+        } catch (AppException ex) {
+            return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));
+        }
     }
 }

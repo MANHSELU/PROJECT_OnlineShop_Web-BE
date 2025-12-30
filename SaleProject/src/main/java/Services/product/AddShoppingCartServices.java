@@ -22,27 +22,29 @@ public class AddShoppingCartServices {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
 
-    public void addToShoppingCart(int user_id, int productId, int quantity){
+    public Shopping_Cart addToShoppingCart(int user_id, int productId, int quantity) {
         Users users = userRepository.FindById(user_id);
-        if(users==null){
+        if (users == null) {
             throw new AppException(ErrorCode.USER_NOT_EXISTED);
         }
         Products products = productRepository.FindById(productId);
-        if(products==null) {
+        if (products == null) {
             throw new AppException(ErrorCode.PRODUCT_NOT_EXISTED);
         }
         Shopping_Cart existingCart = shoppingCartRepository.FindByUser_Id(user_id);
-        if (existingCart !=null){
+        Shopping_Cart shoppingCart = null;
+        if (existingCart != null) {
             existingCart.setQuantity(quantity);
             shoppingCartRepository.save(existingCart);
-        }else {
-            Shopping_Cart shoppingCart = new Shopping_Cart();
+        } else {
+            shoppingCart = new Shopping_Cart();
             shoppingCart.setUsers(users);
             shoppingCart.setProducts(products);
             shoppingCart.setDate_add(LocalDateTime.now());
             shoppingCart.setQuantity(quantity);
             shoppingCartRepository.save(shoppingCart);
         }
+        return shoppingCart;
     }
 
 }

@@ -62,7 +62,7 @@ public class UpdateProductServices {
         }
         return imagesList;
     }
-    public void updateProduct(int product_id, String productName, int category_id, int quantity,
+    public Products updateProduct(int product_id, String productName, int category_id, int quantity,
                               String description, Double product_price, MultipartFile[] image) throws IOException {
         Category category = categoryRepository.FindById(category_id);
         Products products = productRepository.FindById(product_id);
@@ -88,7 +88,7 @@ public class UpdateProductServices {
             imgRepository.deleteAll(oldImages);
             uploadMultiImageFiles(image,products);
         }
-
+        return products;
     }
 
 }

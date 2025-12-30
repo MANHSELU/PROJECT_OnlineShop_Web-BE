@@ -1,5 +1,6 @@
 package Controller.product;
 
+import Model.Shopping_Cart;
 import Model.Users;
 import Repository.user.UserRepository;
 import Services.product.AddShoppingCartServices;
@@ -24,15 +25,15 @@ public class AddTooShoppingCartController {
 
     @PostMapping("/AddShoppingCart")
     @PreAuthorize("hasRole('MEMBER')")
-    public ResponseEntity<?> AddToShoppingCart(Authentication authentication, HttpServletRequest request, @RequestBody int quantity ) {
+    public ResponseEntity<?> AddToShoppingCart(Authentication authentication, HttpServletRequest request, @RequestBody int quantity) {
         try {
             String email = (String) authentication.getPrincipal();
             Users users = userRepository.FindByEmail(email);
-            int product_id  = Integer.parseInt(request.getParameter("product_id"));
-            addShoppingCartServices.addToShoppingCart(users.getUser_id(),product_id,quantity);
-            return ResponseEntity.ok(Map.of("messages", "Added success"));
-        }catch (Exception ex){
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            int product_id = Integer.parseInt(request.getParameter("product_id"));
+            Shopping_Cart shoppingCart = addShoppingCartServices.addToShoppingCart(users.getUser_id(), product_id, quantity);
+            return ResponseEntity.status(201).body(shoppingCart);
+        } catch (Exception ex) {
+            return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));
         }
     }
 }

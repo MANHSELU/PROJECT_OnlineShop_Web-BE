@@ -28,7 +28,8 @@ public class CheckOutOrderServices {
     private ProductRepository productRepository;
     @Autowired
     private ShoppingCartRepository  shoppingCartRepository;
-    public void CheckoutOrder(int user_id,int product_id, Double total_price){
+
+    public Order CheckoutOrder(int user_id,int product_id, Double total_price){
         Users users = userRepository.FindById(user_id);
         if(users == null){
             throw new AppException(ErrorCode.USER_NOT_EXISTED);
@@ -56,5 +57,6 @@ public class CheckOutOrderServices {
             orderDetailRepository.save(orderDetail);
 
         shoppingCartRepository.deleteAll(Cart);
+        return order;
     }
 }
