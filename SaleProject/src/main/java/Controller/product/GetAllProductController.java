@@ -19,7 +19,7 @@ public class GetAllProductController {
     private GetAllProductsServices getAllProductsServices;
 
     @GetMapping("/getAllProduct")
-    @PreAuthorize("hasRole('MEMBER')")
+    //@PreAuthorize("hasRole('MEMBER')")
     public ResponseEntity<?> getAllProduct() {
         try {
             List<Products> prodcutList = getAllProductsServices.getAllProducts();

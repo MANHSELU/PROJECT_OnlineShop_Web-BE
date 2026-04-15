@@ -6,7 +6,9 @@ import Model.Users;
 import Repository.user.UserRepository;
 import Services.email.EmailService;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.util.UUID;
 
 
 @Service
+@Transactional
 public class RegisterServices {
     @Autowired
     private UserRepository userRepository;
@@ -25,7 +28,8 @@ public class RegisterServices {
     private EmailService emailService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Value("${backend.url}")
+    private String backendUrl;
 
     public void register(RegisterDTO registerDTO) throws MessagingException {
         Users user = userRepository.FindByEmail(registerDTO.getEmail());
@@ -46,14 +50,12 @@ public class RegisterServices {
         users.setToken_created_at(LocalDateTime.now());
         users.setToken_expired_at(LocalDateTime.now().plusMinutes(30));
         userRepository.save(users);
-        String verifyLink = "http://localhost:8080/api/verify?token=" + token;
-        emailService.sendEmail(registerDTO.getEmail(),"Xác thực tài khoản ,Nhấn vào link để xác thực tài khoản: ",verifyLink);
+        String verifyLink = backendUrl + "/api/verify?token=" + token;
+        emailService.sendEmail(registerDTO.getEmail(),"Account verification, Click on the link to verify your account: ",verifyLink);
     }
 
     public void verifyUser(String token) {
-        Optional<Users> users = userRepository.FindByToken(token); // ===> Optional là kiểu dữ liệu đặc biệt trong java8
-                                                                  // ===> Optional giống như 1 cái hộp, nếu có giá trị thì lấy giá trị
-                                                                  // từ cái hộp đó ra và dùng nó, còn ko thì hộp rỗng và tránh trả về lỗi NullPointException
+        Optional<Users> users = userRepository.FindByToken(token);
         if (users.get().getToken_expired_at().isBefore(LocalDateTime.now())) {
             throw new AppException(ErrorCode.VERIFY_LINK_EXPIRED);
         }

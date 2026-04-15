@@ -6,20 +6,20 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class RegisterDTO {
-    @NotBlank(message = "User Name không được để trống")
+    @NotBlank(message = "Full Name is required")
     private String username;
-    @NotBlank(message = "Email Name không được để trống")
-    @Email(message = "Email không đúng định dạng")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email is not in the correct format")
     private String email;
-    @NotBlank(message = "Password không được để trống")
-    @Size(min = 8, max = 20, message = "Password phải từ 8-20 ký tự")
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, max = 20, message = "Password must be between 8-20 characters")
     // Ít nhất 1 chữ hoa, 1 chữ thường, 1 số, 1 ký tự đặc biệt
     @Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$",
-            message = "Password phải có chữ hoa, chữ thường, số và ký tự đặc biệt"
+            message = "Password must include at least 1 uppercase letter, lowercase letter, number, and special character"
     )
     private String password;
-    @NotBlank(message = "Confirm Password không được để trống")
+    @NotBlank(message = "Confirm Password is required")
     private String confirmPassword;
 
     public RegisterDTO() {

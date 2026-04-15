@@ -4,8 +4,10 @@ import DTO.LoginDTO;
 import Services.user.LoginServices;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -15,20 +17,26 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private LoginServices loginServices;
+
         @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO, HttpServletResponse response, BindingResult bindingResult) {
         try {
-            String token = loginServices.Login(loginDTO,response);
+            if(bindingResult.hasErrors()) {
+                String errorMessage = bindingResult
+                        .getFieldErrors()
+                        .get(0)
+                        .getDefaultMessage();
+                return ResponseEntity.status(400).body(Map.of("message", errorMessage));
+            }
+            String token = loginServices.Login(loginDTO);
             Cookie cookie = new Cookie("token", token);
             cookie.setMaxAge(3600);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
             response.addCookie(cookie);
-            return ResponseEntity.ok(Map.of(
-                    "messages", "Log in success","token", token
-            ));
+            return ResponseEntity.status(201).body(Map.of("message", "Login Success"));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(Map.of("error",ex.getMessage()));
+            return ResponseEntity.status(400).body(Map.of("message", ex.getMessage()));
         }
     }
 

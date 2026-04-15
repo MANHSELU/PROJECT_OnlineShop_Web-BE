@@ -1,41 +1,52 @@
 package Config;
 
+import Constants.AuthEndPoints;
+import Constants.PublicEndPoints;
 import Filter.JwtAuthenticationFilter;
-import Util.JwtUtil;
-import com.nimbusds.oauth2.sdk.auth.JWTAuthentication;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true) // Bật @PreAuthorize
-public class SecurityConfig {
-
+public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())   // tắt CSRF
-                .cors(cors -> cors.disable())   // tắt CORS (chỉ test)
+                .cors(Customizer.withDefaults())   // tắt CORS (chỉ test)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/loginPage",
@@ -43,12 +54,9 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/js/**"
                         ).permitAll()
-                        .requestMatchers("/api/login", "/api/register", "/api/verify", "/api/sendOTP", "/api/resetPass", "/api/searchProduct",
-                                "/api/findByCategory", "/api/filterProductByPriceASC", "/api/filterProductByPriceDESC", "/api/filterProductByNameASC",
-                                "/api/filterProductByNameDESC","/api/sendMessages","/api/getMessage").permitAll()
-                        .requestMatchers("/api/profile", "/api/AddShoppingCart", "/api/AddFavourite", "/api/getAllProduct", "/api/unBanUser", "/api/banUser"
-                                , "/api/CheckOrder", "/api/createNewProducts", "/api/updateProfile", "/api/changePass", "/api/updateProduct",
-                                "/api/deleteProduct", "/api/addReview").authenticated()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(PublicEndPoints.PUBLIC_API).permitAll()
+                        .requestMatchers(AuthEndPoints.AUTH_API).authenticated()
                         .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
