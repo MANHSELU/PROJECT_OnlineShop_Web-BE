@@ -3,18 +3,29 @@ package DTO;
 import java.util.List;
 
 public class GetAllProductDTO {
+
+    private int product_id;
     private String product_name;
     private String description;
     private Double product_price;
     private String category;
     private List<ImagesDTO> images;
 
-    public GetAllProductDTO(String product_name, String description, Double product_price, String category, List<ImagesDTO> images) {
+    public GetAllProductDTO(int product_id, String product_name, String description, Double product_price, String category, List<ImagesDTO> images) {
+        this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
         this.product_price = product_price;
         this.category = category;
         this.images = images;
+    }
+
+    public int getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
     public String getProduct_name() {

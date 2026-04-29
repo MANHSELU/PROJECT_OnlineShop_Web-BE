@@ -37,6 +37,7 @@ public class ProductMapper {
 
     public GetAllProductDTO toAllProductDTO(Products products){
         return new GetAllProductDTO(
+                products.getProduct_id(),
                 products.getProduct_name(),
                 products.getDescription(),
                 products.getProduct_price(),
