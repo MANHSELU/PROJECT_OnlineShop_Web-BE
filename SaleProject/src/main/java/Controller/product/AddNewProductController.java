@@ -3,7 +3,7 @@ package Controller.product;
 import DTO.CreateProductDTO;
 import Exceptions.AppException;
 import Model.Products;
-import Services.product.AddNewProductServices;
+import Services.product.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,15 +16,15 @@ import java.util.Map;
 @RequestMapping("/api")
 public class AddNewProductController {
     @Autowired
-    private AddNewProductServices addNewProductServices;
+    private ProductServiceImpl productServiceImpl;
 
     @PostMapping("/createNewProducts")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createNewProducts(@ModelAttribute CreateProductDTO createProductDTO, @RequestParam("images") MultipartFile[] files) {
         try {
-            Products products = addNewProductServices.AddNewProduct(createProductDTO, files);
-            return ResponseEntity.status(201).body(products);
-        } catch (AppException | IOException ex) {
+            productServiceImpl.createProduct(createProductDTO, files);
+            return ResponseEntity.status(201).body("New product was added successfully");
+        } catch (Exception ex) {
             return ResponseEntity.status(400).body(Map.of("message", ex.getMessage()));
         }
     }

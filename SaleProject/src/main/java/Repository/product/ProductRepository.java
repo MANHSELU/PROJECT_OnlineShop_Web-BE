@@ -13,8 +13,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Products, Integer> {
     @Query(value = "select * from Products where product_id = :product_id",nativeQuery = true)
     Products FindById(@Param("product_id") int  product_id);
-    @Query(value = "select * from Products",nativeQuery = true)
-    List<Products> FindAllProducts();
     @Query(value = "select * from Products where product_id = :product_id",nativeQuery = true)
     List<Products> FindListById(@Param("product_id") int  product_id);
     @Query(value = "select * from Products where lower(product_name) LIKE lower(concat('%', :productName, '%'))",nativeQuery = true)
@@ -29,4 +27,6 @@ public interface ProductRepository extends JpaRepository<Products, Integer> {
     List<Products> FindByProductNameASC();
     @Query(value = "select * from Products order by product_name desc",nativeQuery = true)
     List<Products> FindByProductNameDESC();
+    @Query(value = "select top 5 * from Products", nativeQuery = true)
+    List<Products> FindTopProductsList();
 }

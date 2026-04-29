@@ -5,6 +5,10 @@ public class PublicEndPoints {
             "/api/login",
             "/api/register",
             "/api/verify?token=",
-            "/api/verify"
+            "/api/verify",
+            "/api/topProducts",
+            "/api/categories",
+            "/api/getDetailProduct",
+            "/api/getAllProduct"
     };
 }

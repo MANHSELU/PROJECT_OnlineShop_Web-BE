@@ -5,7 +5,7 @@ import Exceptions.ErrorCode;
 import Model.Category;
 import Model.Images;
 import Model.Products;
-import Repository.product.CategoryRepository;
+import Repository.category.CategoryRepository;
 import Repository.product.ImgRepository;
 import Repository.product.ProductRepository;
 import com.cloudinary.Cloudinary;

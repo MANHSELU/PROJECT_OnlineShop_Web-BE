@@ -34,7 +34,7 @@ public class LoginController {
             cookie.setHttpOnly(true);
             cookie.setPath("/");
             response.addCookie(cookie);
-            return ResponseEntity.status(201).body(Map.of("message", "Login Success"));
+            return ResponseEntity.status(200).body(Map.of("message", "Login Success"));
         } catch (Exception ex) {
             return ResponseEntity.status(400).body(Map.of("message", ex.getMessage()));
         }

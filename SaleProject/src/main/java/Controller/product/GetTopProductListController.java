@@ -1,8 +1,6 @@
 package Controller.product;
 
-import DTO.GetAllProductDTO;
-import Exceptions.AppException;
-import Model.Products;
+import DTO.GetTopProductDTO;
 import Services.product.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +12,17 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class GetAllProductController {
+public class GetTopProductListController {
     @Autowired
     private ProductServiceImpl productServiceImpl;
 
-    @GetMapping("/getAllProduct")
-    //@PreAuthorize("hasRole('MEMBER')")
-    public ResponseEntity<?> getAllProduct() {
+    @GetMapping("/topProducts")
+    public ResponseEntity<?> getTopProducts (){
         try {
-            List<GetAllProductDTO> prodcutList = productServiceImpl.getAllProducts();
-            return ResponseEntity.status(200).body(prodcutList);
-        } catch (AppException ex) {
-            return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));
+            List<GetTopProductDTO> productsList = productServiceImpl.getTopProducts();
+            return ResponseEntity.status(200).body(productsList);
+        }catch (Exception ex){
+            return ResponseEntity.status(400).body(Map.of("message", ex.getMessage()));
         }
     }
 }
