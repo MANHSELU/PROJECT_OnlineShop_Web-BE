@@ -6,13 +6,21 @@ public class GetProfileDTO {
     private String email;
     private String userName;
     private Role role;
+    private String address;
+    private String phone;
+
+    public GetProfileDTO(String email, String userName, Role role, String address, String phone) {
+        this.email = email;
+        this.userName = userName;
+        this.role = role;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public enum Role {
-        USER,
-        ADMIN,
-        MODERATOR
+        GUEST, MEMBER, ADMIN
     }
-    public GetProfileDTO() {
-    }
+
     public String getEmail() {
         return email;
     }
@@ -35,5 +43,21 @@ public class GetProfileDTO {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

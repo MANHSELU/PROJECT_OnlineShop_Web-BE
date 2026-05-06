@@ -48,6 +48,25 @@ import java.time.LocalDateTime;
         public enum Status{
             ACTIVE,BANNED
         }
+
+        public Users(int user_id, String user_name, String email, String password, Role role, boolean is_account_enabled, Status status, String token, LocalDateTime token_created_at, LocalDateTime token_expired_at, String phone, String address, String otp, LocalDateTime otp_created_at, LocalDateTime otp_expired_at) {
+            this.user_id = user_id;
+            this.user_name = user_name;
+            this.email = email;
+            this.password = password;
+            this.role = role;
+            this.is_account_enabled = is_account_enabled;
+            this.status = status;
+            this.token = token;
+            this.token_created_at = token_created_at;
+            this.token_expired_at = token_expired_at;
+            this.phone = phone;
+            this.address = address;
+            this.otp = otp;
+            this.otp_created_at = otp_created_at;
+            this.otp_expired_at = otp_expired_at;
+        }
+
         public Users() {
         }
 

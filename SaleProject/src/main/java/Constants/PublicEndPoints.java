@@ -9,6 +9,7 @@ public class PublicEndPoints {
             "/api/topProducts",
             "/api/categories",
             "/api/getDetailProduct",
-            "/api/getAllProduct"
+            "/api/getAllProduct",
+            "/api/findByCategory",
     };
 }

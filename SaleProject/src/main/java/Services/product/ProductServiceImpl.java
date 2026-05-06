@@ -12,6 +12,7 @@ import Model.Category;
 import Model.Products;
 import Repository.category.CategoryRepository;
 import Repository.product.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,20 +37,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void createProduct(CreateProductDTO createProductDTO, MultipartFile[] images) {
-        Category category = categoryRepository.FindById(createProductDTO.getCategory_id());
-        Products products = new Products();
-        products.setProduct_name(createProductDTO.getProduct_name());
-        products.setQuantity(createProductDTO.getQuantity());
-        products.setDescription(createProductDTO.getDescription());
-        products.setCategory(category);
-        products.setProduct_price(createProductDTO.getProduct_price());
-        productRepository.save(products);
-        if (images != null && images.length >= 4) {
-            imageServiceImpl.uploadMultiImageFiles(images, products);
-        } else {
+        if (images == null || images.length < 4) {
             throw new AppException(ErrorCode.PRODUCT_IMAGES_NOT_ENOUGH);
         }
+        Category category = categoryRepository.FindById(createProductDTO.getCategory_id());
+        if(category == null){
+            throw new AppException(ErrorCode.CATEGORY_NOT_EXISTED);
+        }
+        Products products = productMapper.toProductEntity(createProductDTO);
+        products.setCategory(category);
+        productRepository.save(products);
+        imageServiceImpl.uploadMultiImageFiles(images, products);
+
     }
 
     @Override
@@ -66,5 +67,12 @@ public class ProductServiceImpl implements ProductService {
         List<Products> products = productRepository.findAll();
         return products.stream().map(productMapper::toAllProductDTO).toList();
     }
+
+    @Override
+    public List<GetAllProductDTO> getAllProductsByCategory(int categoryId) {
+        List<Products> products = productRepository.FindByCategory(categoryId);
+        return products.stream().map(productMapper::toAllProductDTO).toList();
+    }
+
 
 }

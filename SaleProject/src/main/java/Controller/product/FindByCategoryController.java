@@ -1,8 +1,8 @@
 package Controller.product;
 
+import DTO.GetAllProductDTO;
 import Exceptions.AppException;
-import Model.Products;
-import Services.product.FindProductByCategoryService;
+import Services.product.ProductServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ import java.util.Map;
 @RequestMapping("/api")
 public class FindByCategoryController {
     @Autowired
-    private FindProductByCategoryService findProductByCategoryService;
+    private ProductServiceImpl productServiceImpl;
 
     @GetMapping("/findByCategory")
     public ResponseEntity<?> findProductByCategory(HttpServletRequest request) {
         try {
             int category_id = Integer.parseInt(request.getParameter("category_id"));
-            List<Products> productList = findProductByCategoryService.searchProductByCategory(category_id);
+            List<GetAllProductDTO> productList = productServiceImpl.getAllProductsByCategory(category_id);
             return ResponseEntity.status(200).body(productList);
         } catch (AppException ex) {
             return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));

@@ -14,7 +14,7 @@ public enum ErrorCode {
     OTP_EXISTED(1002, "OTP vừa gửi còn hiệu lực, vui lòng nhập OTP", HttpStatus.BAD_REQUEST),
     INVALID_OTP(1002, "OTP không tồn tại hoặc không còn hiệu lực", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD(1004, "Your password is incorrect", HttpStatus.BAD_REQUEST),
-    PRODUCT_NOT_EXISTED(1005, "Sản phẩm không tồn tại", HttpStatus.BAD_REQUEST),
+    PRODUCT_NOT_EXISTED(1005, "Product not exists", HttpStatus.BAD_REQUEST),
     PRODUCT_IMAGES_NOT_ENOUGH(1005, "Cần tải lên ít nhất 4 ảnh", HttpStatus.BAD_REQUEST),
     CART_NOT_EXISTED(1002, "Giỏ hàng không tồn tại", HttpStatus.BAD_REQUEST),
     INVALID_RATING(1002, "Hãy nhập đúng rating", HttpStatus.BAD_REQUEST),
@@ -22,7 +22,8 @@ public enum ErrorCode {
     CAN_NOT_RATING(1002, "Không được để trống rating", HttpStatus.BAD_REQUEST),
     USER_NOT_ENABLED(1003, "Your account is not verified yet. New verify link have been sent, pls check your email", HttpStatus.BAD_REQUEST),
     USER_NOT_ENABLED_NOT_EXPIRED(1003, "Your account is not verified yet. Pls check your mail to get verify link", HttpStatus.BAD_REQUEST),
-    VERIFY_LINK_EXPIRED(1050, "Verify authenticate is expired!", HttpStatus.BAD_REQUEST);
+    VERIFY_LINK_EXPIRED(1050, "Verify authenticate is expired!", HttpStatus.BAD_REQUEST),
+    CATEGORY_NOT_EXISTED(1005, "Category not exists", HttpStatus.BAD_REQUEST);
 
 
     private final int code;

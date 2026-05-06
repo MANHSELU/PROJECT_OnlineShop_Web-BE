@@ -29,12 +29,9 @@ public class LoginController {
                 return ResponseEntity.status(400).body(Map.of("message", errorMessage));
             }
             String token = loginServices.Login(loginDTO);
-            Cookie cookie = new Cookie("token", token);
-            cookie.setMaxAge(3600);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            return ResponseEntity.status(200).body(Map.of("message", "Login Success"));
+            response.setHeader("Set-Cookie",
+                    "token=" + token + "; Path=/; HttpOnly; Max-Age=3600; SameSite=Lax");
+            return ResponseEntity.status(200).body(Map.of("message", "Login successfully"));
         } catch (Exception ex) {
             return ResponseEntity.status(400).body(Map.of("message", ex.getMessage()));
         }

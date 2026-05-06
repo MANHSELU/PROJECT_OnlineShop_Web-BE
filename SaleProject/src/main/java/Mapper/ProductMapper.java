@@ -1,5 +1,6 @@
 package Mapper;
 
+import DTO.CreateProductDTO;
 import DTO.GetAllProductDTO;
 import DTO.GetDetailProductDTO;
 import DTO.GetTopProductDTO;
@@ -11,6 +12,16 @@ import org.springframework.stereotype.Component;
 public class ProductMapper {
     @Autowired
     private ImagesMapper imagesMapper;
+
+    public Products toProductEntity(CreateProductDTO createProductDTO){
+        Products product = new Products();
+        product.setProduct_name(createProductDTO.getProduct_name());
+        product.setProduct_price(createProductDTO.getProduct_price());
+        product.setDescription(createProductDTO.getDescription());
+        product.setQuantity(createProductDTO.getQuantity());
+        return product;
+    }
+
 
     public GetTopProductDTO toTopProductDTO(Products products){
         return new GetTopProductDTO(

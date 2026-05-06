@@ -13,4 +13,5 @@ public interface ProductService {
      void createProduct(CreateProductDTO createProductDTO, MultipartFile[] images);
      GetDetailProductDTO getDetailProduct(int product_id);
      List<GetAllProductDTO> getAllProducts();
+     List<GetAllProductDTO> getAllProductsByCategory(int categoryId);
 }
